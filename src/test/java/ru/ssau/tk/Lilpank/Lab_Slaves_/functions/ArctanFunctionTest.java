@@ -4,10 +4,11 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-public class IdentityFunctionTest {
+public class ArctanFunctionTest {
 
     @Test
     public void testApply() {
-        assertEquals(new IdentityFunction().apply(7.), 7.);
+        assertEquals(new ArctanFunction().apply(0), 0);
+        assertEquals(new ArctanFunction().apply(1), Math.PI / 4);
     }
 }
