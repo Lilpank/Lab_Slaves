@@ -4,10 +4,10 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-public class LgFunctionTest {
+public class SqrFunctionTest {
+
     @Test
     public void testApply() {
-        assertEquals(new LgFunction().apply(1),0);
-        assertEquals(new LgFunction().apply(100),2);
+        assertEquals(new SqrFunction().apply(2),4);
     }
 }
