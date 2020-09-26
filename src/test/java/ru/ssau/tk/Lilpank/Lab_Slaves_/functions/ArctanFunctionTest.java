@@ -10,5 +10,6 @@ public class ArctanFunctionTest {
     public void testApply() {
         assertEquals(new ArctanFunction().apply(0), 0);
         assertEquals(new ArctanFunction().apply(1), Math.PI / 4);
+        assertEquals(new ArctanFunction().apply(-Math.sqrt(3)), -Math.PI / 3);
     }
 }

@@ -9,5 +9,6 @@ public class LgFunctionTest {
     public void testApply() {
         assertEquals(new LgFunction().apply(1),0);
         assertEquals(new LgFunction().apply(100),2);
+        assertEquals(new LgFunction().apply(0.001),-3);
     }
 }
