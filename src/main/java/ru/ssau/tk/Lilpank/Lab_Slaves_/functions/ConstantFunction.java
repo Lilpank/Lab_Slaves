@@ -14,6 +14,6 @@ public class ConstantFunction implements MathFunction {
 
     @Override
     public double apply(double x) {
-        return x;
+        return num;
     }
 }
