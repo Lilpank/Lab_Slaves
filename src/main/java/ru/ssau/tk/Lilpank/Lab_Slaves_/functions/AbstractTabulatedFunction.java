@@ -10,14 +10,11 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
     public double apply(double x) {
         if (x < leftBound()) {
             return extrapolateLeft(x);
-        }
-        if (x > rightBound()) {
+        } else if (x > rightBound()) {
             return extrapolateRight(x);
-        }
-        if (indexOfX(x) != -1) {
+        } else if (indexOfX(x) != -1) {
             return getY(getCount());
-        }
-        else interpolate(x, floorIndexOfX(x));
+        } else return interpolate(x, floorIndexOfX(x));
     }
 
     protected abstract int floorIndexOfX(double x);
@@ -29,5 +26,6 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
     protected abstract double interpolate(double x, int floorIndex);
 
     protected abstract double interpolate(double x, double leftX, double rightX, double leftY, double rightY);
+
 
 }
