@@ -26,5 +26,6 @@ public class CompositeFunctionTest {
         assertEquals(lnArc.apply(1),0);
         assertEquals(doubleLn.apply(10),0);
         assertEquals(lnSelf.apply(10),1);
+        assertEquals(lnArc.apply(100),1.1,0.01);
     }
 }
