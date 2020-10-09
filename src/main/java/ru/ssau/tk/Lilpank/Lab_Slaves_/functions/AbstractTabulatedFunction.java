@@ -1,10 +1,10 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
-    private int count;
+    private int count = 0;
 
-    public int getCount() {
-        return count;
+    public int getCount(double x, double y) {
+        return ++count;
     }
 
     public double apply(double x) {
@@ -13,8 +13,9 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
         } else if (x > rightBound()) {
             return extrapolateRight(x);
         } else if (indexOfX(x) != -1) {
-            return getY(getCount());
-        } else return interpolate(x, floorIndexOfX(x));
+            return getY(indexOfX(x));
+        }
+        return interpolate(x, floorIndexOfX(x));
     }
 
     protected abstract int floorIndexOfX(double x);
@@ -25,7 +26,7 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
     protected abstract double interpolate(double x, int floorIndex);
 
-    protected abstract double interpolate(double x, double leftX, double rightX, double leftY, double rightY);
-
-
+    protected double interpolate(double x, double leftX, double rightX, double leftY, double rightY) {
+        return (leftY + (x - leftX) * (rightY - leftY) / (rightX - leftX));
+    }
 }
