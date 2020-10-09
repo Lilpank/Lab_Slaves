@@ -1,0 +1,111 @@
+package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
+
+public class MockTabulatedFunction extends AbstractTabulatedFunction implements TabulatedFunction {
+    final double x0 = 3.;
+    final double x1 = 5.;
+    final double y0 = 6.;
+    final double y1 = 12.;
+
+    @Override
+    public int getCount(double x, double y) {
+        return super.getCount(x, y);
+    }
+
+    @Override
+    public int getCount() {
+        getCount(x0, y0);
+        int x = getCount(x1, y1);
+        if (x == 2) return x;
+        return 0;
+    }
+
+    @Override
+    public double apply(double x) {
+        return super.apply(x);
+    }
+
+    @Override
+    public double getX(int index) {
+        if (index == 0) {
+            return x0;
+        }
+        return x1;
+    }
+
+    @Override
+    public double getY(int index) {
+        if (index == 0) {
+            return y0;
+        }
+        return y1;
+    }
+
+    @Override
+    public void setY(int index, double value) {
+
+    }
+
+    @Override
+    public int indexOfX(double x) {
+        if (x == x0) {
+            return 0;
+        } else if (x == x1) {
+            return 1;
+        }
+        return -1;
+    }
+
+    @Override
+    public int indexOfY(double y) {
+        if (y == y0) {
+            return 0;
+        } else if (y == y1) {
+            return 1;
+        }
+        return -1;
+    }
+
+    @Override
+    public double leftBound() {
+        return 0;
+    }
+
+    @Override
+    public double rightBound() {
+        return 20;
+    }
+
+    @Override
+    protected int floorIndexOfX(double x) {
+        if (x - x0 < 0.0005) {
+            return 0;
+        } else if (x - x1 > 0.0005) {
+            return getCount();
+        }
+        return -1;
+    }
+
+    @Override
+    protected double extrapolateLeft(double x) {
+        return interpolate(x, x0, x1, y0, y1);
+    }
+
+    @Override
+    protected double extrapolateRight(double x) {
+        return interpolate(x, x0, x1, y0, y1);
+    }
+
+    @Override
+    protected double interpolate(double x, int floorIndex) {
+        if (floorIndex == 1) {
+            return extrapolateRight(x);
+        }
+        return x;
+    }
+
+
+    @Override
+    protected double interpolate(double x, double leftX, double rightX, double leftY, double rightY) {
+        return (leftY + (x - leftX) * (rightY - leftY) / (rightX - leftX));
+    }
+}
