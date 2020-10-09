@@ -30,3 +30,4 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
         return (leftY + (x - leftX) * (rightY - leftY) / (rightX - leftX));
     }
 }
+
