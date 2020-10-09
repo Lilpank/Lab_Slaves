@@ -51,6 +51,13 @@ public class ArrayTabulatedFunctionTest {
     }
 
     @Test
+    public void testGetCount() {
+        assertEquals(definedThroughArrays.getCount(), 9);
+        assertEquals(definedThroughMathFunction.getCount(), 1000);
+        assertEquals(unitArray.getCount(), 1);
+    }
+
+    @Test
     public void testGetX() {
         for (int i = 0; i < 9; i++) {
             assertEquals(definedThroughArrays.getX(i), i - 3., 1E-6);

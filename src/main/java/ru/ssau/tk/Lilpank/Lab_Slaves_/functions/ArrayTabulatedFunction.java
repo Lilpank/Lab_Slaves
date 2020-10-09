@@ -85,6 +85,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
 
     @Override
+    public int getCount() {
+        return count;
+    }
+
+    @Override
     public double getX(int index) {
         return xValues[index];
     }
