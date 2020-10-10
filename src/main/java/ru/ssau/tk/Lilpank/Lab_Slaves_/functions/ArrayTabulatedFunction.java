@@ -15,16 +15,27 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         this.count = count;
+        double xStart = xFrom, xFinish = xTo;
+        if (xTo < xFrom) {
+            xStart = xTo;
+            xFinish = xFrom;
+        }
         xValues = new double[count];
         yValues = new double[count];
-
-        double xStart = xFrom;
-        double step = (xFrom - xTo) / (count - 1);
-
-        for (int i = 0; i < count; i++) {
-            xValues[i] = xStart;
-            yValues[i] = source.apply(xStart);
-            xStart += step;
+        if (Math.abs(xFinish - xStart) < 1E-6) {
+            double yValue = source.apply(xStart);
+            for (int i = 0; i < count; i++) {
+                xValues[i] = xStart;
+                yValues[i] = yValue;
+            }
+        } else {
+            double samplingStep = (xFinish - xStart) / (count - 1);
+            double xValue = xStart;
+            for (int i = 0; i < count; i++) {
+                xValues[i] = xValue;
+                yValues[i] = source.apply(xValue);
+                xValue += samplingStep;
+            }
         }
     }
 
@@ -33,10 +44,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         if (x < xValues[0]) {
             return 0;
         }
-        for (int i = 0; i + 1 < count; i++) {
-            if (xValues[i + 1] > x) {
-                return i;
-            }
+        for (int i = 1; i < count; i++) {
+            if (xValues[i] > x) return i - 1;
         }
         return count;
     }
@@ -54,7 +63,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         if (count == 1) {
             return x;
         }
-        return interpolate(x, xValues[0], xValues[1], yValues[0], yValues[1]);
+        return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
 
     @Override

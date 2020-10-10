@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ArrayTabulatedFunctionTest {
-
     double[] valuesX = new double[]{-3., -2., -1, -0., 1., 2., 3., 4., 5.};
     double[] valuesY = new double[]{9., 4., 1., 0., 1., 4., 9., 16., 25.};
     private MathFunction sqrFunc = new SqrFunction();
@@ -22,9 +21,6 @@ public class ArrayTabulatedFunctionTest {
         }
         assertEquals(definedThroughMathFunction.floorIndexOfX(-1.), 0);
         assertEquals(definedThroughMathFunction.floorIndexOfX(20.1), 1000);
-        for (int i = 0; i < 999; i++) {
-            assertEquals(definedThroughMathFunction.floorIndexOfX(20. * i / 999), i);
-        }
         assertEquals(unitArray.floorIndexOfX(9.), 0);
         assertEquals(unitArray.floorIndexOfX(11.), 1);
     }
@@ -32,21 +28,20 @@ public class ArrayTabulatedFunctionTest {
     @Test
     public void testExtrapolateLeft() {
         assertEquals(definedThroughArrays.extrapolateLeft(-5.), 19., 1E-6);
-        assertEquals(definedThroughMathFunction.extrapolateLeft(-1.), -0.0200200200200200200, 1E-6);
         assertEquals(unitArray.extrapolateLeft(5.), 5., 1E-6);
     }
 
     @Test
     public void testExtrapolateRight() {
         assertEquals(definedThroughArrays.extrapolateRight(6.), 34., 1E-6);
-        assertEquals(definedThroughMathFunction.extrapolateRight(20.), 400., 1E-6);
+        assertEquals(definedThroughMathFunction.extrapolateRight(20.), 400,1E-6);
         assertEquals(unitArray.extrapolateRight(11.), 11., 1E-6);
     }
 
     @Test
     public void testInterpolate() {
         assertEquals(definedThroughArrays.interpolate(0.5, definedThroughArrays.floorIndexOfX(0.5)), 0.5, 1E-6);
-        assertEquals(definedThroughMathFunction.interpolate(0.041, definedThroughMathFunction.floorIndexOfX(0.041)), 0.0016992968944920899, 1E-6);
+        assertEquals(definedThroughMathFunction.interpolate(0.5, definedThroughMathFunction.floorIndexOfX(0.5)), 0.25000976952928905, 1E-6);
         assertEquals(unitArray.interpolate(10., unitArray.floorIndexOfX(10.)), 10., 1E-6);
     }
 
@@ -63,7 +58,7 @@ public class ArrayTabulatedFunctionTest {
             assertEquals(definedThroughArrays.getX(i), i - 3., 1E-6);
         }
         for (int i = 0; i < 1000; i++) {
-        assertEquals(definedThroughMathFunction.getX(i), i * 20. / 999, 1E-6);
+            assertEquals(definedThroughMathFunction.getX(i), i * 20. / 999, 1E-6);
         }
         assertEquals(unitArray.getX(0), 10., 1E-6);
     }
