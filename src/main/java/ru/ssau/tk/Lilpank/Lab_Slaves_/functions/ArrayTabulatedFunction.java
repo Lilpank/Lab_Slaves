@@ -15,51 +15,36 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         this.count = count;
-        double xStart = xFrom, xFinish = xTo;
-        if (xTo < xFrom) {
-            xStart = xTo;
-            xFinish = xFrom;
-        }
         xValues = new double[count];
         yValues = new double[count];
-        if (Math.abs(xFinish - xStart) < 1E-6) {
-            double yValue = source.apply(xStart);
-            for (int i = 0; i < count; i++) {
-                xValues[i] = xStart;
-                yValues[i] = yValue;
-            }
-        } else {
-            double samplingStep = (xFinish - xStart) / (count - 1);
-            double xValue = xStart;
-            for (int i = 0; i < count; i++) {
-                xValues[i] = xValue;
-                yValues[i] = source.apply(xValue);
-                xValue += samplingStep;
 
-            }
+        double xStart = xFrom;
+        double step = (xFrom - xTo) / (count - 1);
+
+        for (int i = 0; i < count; i++) {
+            xValues[i] = xStart;
+            yValues[i] = source.apply(xStart);
+            xStart += step;
         }
-
     }
 
     @Override
     protected int floorIndexOfX(double x) {
-        if (x - leftBound() < 0.0005) {
+        if (x < xValues[0]) {
             return 0;
-        } else if (x - rightBound() > 0.0005) {
-            return count;
         }
-        for (int i = 1; i != count; i++) {
-            if (x - xValues[i] <= 0.0005) {
-                return i - 1;
+        for (int i = 0; i + 1 < count; i++) {
+            if (xValues[i + 1] > x) {
+                return i;
             }
         }
-        return -1;
+        return count;
     }
 
     @Override
     protected double extrapolateLeft(double x) {
         if (count == 1) {
-            return yValues[1];
+            return x;
         }
         return interpolate(x, xValues[0], xValues[1], yValues[0], yValues[1]);
     }
@@ -67,9 +52,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     protected double extrapolateRight(double x) {
         if (count == 1) {
-            return yValues[1];
+            return x;
         }
-        return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
+        return interpolate(x, xValues[0], xValues[1], yValues[0], yValues[1]);
     }
 
     @Override
@@ -87,6 +72,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
 
+
+    @Override
+    public int getCount() {
+        return count;
+    }
 
     @Override
     public double getX(int index) {
