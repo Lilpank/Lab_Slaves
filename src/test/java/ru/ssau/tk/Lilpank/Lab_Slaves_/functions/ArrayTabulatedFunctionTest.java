@@ -5,116 +5,136 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ArrayTabulatedFunctionTest {
-    double[] valuesX = new double[]{-3., -2., -1, -0., 1., 2., 3., 4., 5.};
-    double[] valuesY = new double[]{9., 4., 1., 0., 1., 4., 9., 16., 25.};
-    private MathFunction sqrFunc = new SqrFunction();
-    private ArrayTabulatedFunction definedThroughArrays = new ArrayTabulatedFunction(valuesX, valuesY);
-    private ArrayTabulatedFunction definedThroughMathFunction = new ArrayTabulatedFunction(sqrFunc, 20, 0, 1000);
-    private ArrayTabulatedFunction unitArray = new ArrayTabulatedFunction(sqrFunc, 10, 10, 1);
+    private final static double DELTA = 0.00001;
+    private final double[] valuesX = new double[]{-15, -3, -1, 0, 1, 3, 15};
+    private final double[] valuesY = new double[]{-5, -2, -1, -0, 1, 2, 9};
+    private final MathFunction sqrFunc = new SqrFunction();
+
+    private ArrayTabulatedFunction getDefinedThroughArrays() {
+        return new ArrayTabulatedFunction(valuesX, valuesY);
+    }
+
+    private ArrayTabulatedFunction getDefinedThroughMathFunction() {
+        return new ArrayTabulatedFunction(sqrFunc, 0, 10, 20);
+    }
+
+    private ArrayTabulatedFunction getUnitArray() {
+        return new ArrayTabulatedFunction(sqrFunc, 6, 6, 1);
+    }
 
     @Test
     public void testFloorIndexOfX() {
-        assertEquals(definedThroughArrays.floorIndexOfX(30.), 9);
-        assertEquals(definedThroughArrays.floorIndexOfX(-4.), 0);
-        for (int i = -2; i < 5; i++) {
-            assertEquals(definedThroughArrays.floorIndexOfX(i - 0.5), i + 2);
-        }
-        assertEquals(definedThroughMathFunction.floorIndexOfX(-1.), 0);
-        assertEquals(definedThroughMathFunction.floorIndexOfX(20.1), 1000);
-        assertEquals(unitArray.floorIndexOfX(9.), 0);
-        assertEquals(unitArray.floorIndexOfX(11.), 1);
+        assertEquals(getDefinedThroughArrays().floorIndexOfX(0), 3, DELTA);
+        assertEquals(getDefinedThroughArrays().floorIndexOfX(-1), 2, DELTA);
+        assertEquals(getDefinedThroughArrays().floorIndexOfX(-20), 0, DELTA);
+
+        assertEquals(getDefinedThroughMathFunction().floorIndexOfX(-1), 0, DELTA);
+        assertEquals(getDefinedThroughMathFunction().floorIndexOfX(20), 20, DELTA);
+
+        assertEquals(getUnitArray().floorIndexOfX(0), 0, DELTA);
+        assertEquals(getUnitArray().floorIndexOfX(6), 1, DELTA);
+        assertEquals(getUnitArray().floorIndexOfX(10000), 1, DELTA);
     }
 
     @Test
     public void testExtrapolateLeft() {
-        assertEquals(definedThroughArrays.extrapolateLeft(-5.), 19., 1E-6);
-        assertEquals(unitArray.extrapolateLeft(5.), 5., 1E-6);
+        assertEquals(getDefinedThroughArrays().extrapolateLeft(-10), -3.75, DELTA);
+        assertEquals(getDefinedThroughMathFunction().extrapolateLeft(9), 4.7368421052631575, DELTA);
+        assertEquals(getUnitArray().extrapolateLeft(1), 1, DELTA);
     }
 
     @Test
     public void testExtrapolateRight() {
-        assertEquals(definedThroughArrays.extrapolateRight(6.), 34., 1E-6);
-        assertEquals(definedThroughMathFunction.extrapolateRight(20.), 400,1E-6);
-        assertEquals(unitArray.extrapolateRight(11.), 11., 1E-6);
+        assertEquals(getDefinedThroughArrays().extrapolateRight(20), 6.25, DELTA);
+        assertEquals(getDefinedThroughMathFunction().extrapolateRight(10), 100, DELTA);
+        assertEquals(getUnitArray().extrapolateLeft(5), 5, DELTA);
     }
 
     @Test
     public void testInterpolate() {
-        assertEquals(definedThroughArrays.interpolate(0.5, definedThroughArrays.floorIndexOfX(0.5)), 0.5, 1E-6);
-        assertEquals(definedThroughMathFunction.interpolate(0.5, definedThroughMathFunction.floorIndexOfX(0.5)), 0.25000976952928905, 1E-6);
-        assertEquals(unitArray.interpolate(10., unitArray.floorIndexOfX(10.)), 10., 1E-6);
+        assertEquals(getDefinedThroughArrays().interpolate(0.5, getDefinedThroughArrays().floorIndexOfX(0.5)), 0.5, DELTA);
+        assertEquals(getDefinedThroughMathFunction().interpolate(10, getDefinedThroughMathFunction().floorIndexOfX(10)), 100, DELTA);
+        assertEquals(getUnitArray().interpolate(10, getUnitArray().floorIndexOfX(10)), 10, DELTA);
     }
+
 
     @Test
     public void testGetCount() {
-        assertEquals(definedThroughArrays.getCount(), 9);
-        assertEquals(definedThroughMathFunction.getCount(), 1000);
-        assertEquals(unitArray.getCount(), 1);
+        assertEquals(getDefinedThroughArrays().getCount(), 7);
+        assertEquals(getDefinedThroughMathFunction().getCount(), 20);
+        assertEquals(getUnitArray().getCount(), 1);
     }
 
     @Test
     public void testGetX() {
-        for (int i = 0; i < 9; i++) {
-            assertEquals(definedThroughArrays.getX(i), i - 3., 1E-6);
-        }
-        for (int i = 0; i < 1000; i++) {
-            assertEquals(definedThroughMathFunction.getX(i), i * 20. / 999, 1E-6);
-        }
-        assertEquals(unitArray.getX(0), 10., 1E-6);
+        assertEquals(getDefinedThroughArrays().getX(0), -15);
+        assertEquals(getDefinedThroughArrays().getX(4), 1);
+        assertEquals(getDefinedThroughArrays().getX(5), 3);
+
+        assertEquals(getDefinedThroughMathFunction().getX(0), 0, DELTA);
+        assertEquals(getDefinedThroughMathFunction().getX(19), 10, DELTA);
+        assertEquals(getDefinedThroughMathFunction().getX(18), 9.473684210526317, DELTA);
+
+        assertEquals(getUnitArray().getX(0), 6, DELTA);
     }
 
     @Test
     public void testGetY() {
-        for (int i = 0; i < 9; i++) {
-            assertEquals(definedThroughArrays.getY(i), Math.pow(i - 3., 2), 1E-6);
-        }
-        for (int i = 0; i < 1000; i++) {
-            assertEquals(definedThroughMathFunction.getY(i), Math.pow(i * 20. / 999, 2), 1E-6);
-        }
-        assertEquals(unitArray.getY(0), 100., 1E-6);
+        assertEquals(getDefinedThroughArrays().getY(0), -5, DELTA);
+        assertEquals(getDefinedThroughArrays().getY(4), 1, DELTA);
+        assertEquals(getDefinedThroughArrays().getY(5), 2, DELTA);
+
+        assertEquals(getDefinedThroughMathFunction().getY(0), 0, DELTA);
+        assertEquals(getDefinedThroughMathFunction().getY(6), 9.972299168975066, DELTA);
+        assertEquals(getDefinedThroughMathFunction().getY(19), 100.00000000000004, DELTA);
+        assertEquals(getUnitArray().getY(0), 36, DELTA);
     }
 
     @Test
     public void testSetY() {
-        definedThroughArrays.setY(5, 100500.);
-        definedThroughMathFunction.setY(0, 1009.);
-        unitArray.setY(0, 9.);
-        assertEquals(definedThroughArrays.getY(5), 100500., 1E-6);
-        assertEquals(definedThroughMathFunction.getY(0), 1009., 1E-6);
-        assertEquals(unitArray.getY(0), 9., 1E-6);
+        ArrayTabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
+        ArrayTabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
+        ArrayTabulatedFunction testUnitArray = getUnitArray();
+
+        testDefinedThroughArrays.setY(5, 250);
+        testDefinedThroughMathFunction.setY(0, 150);
+        testUnitArray.setY(0, 9);
+        assertEquals(testDefinedThroughArrays.getY(5), 250);
+        assertEquals(testDefinedThroughMathFunction.getY(0), 150);
+        assertEquals(testUnitArray.getY(0), 9, DELTA);
     }
 
     @Test
     public void testIndexOfX() {
-        assertEquals(definedThroughArrays.indexOfX(1.), 4);
-        assertEquals(definedThroughArrays.indexOfX(1.1), -1);
-        assertEquals(definedThroughMathFunction.indexOfX(0.), 0);
-        assertEquals(definedThroughMathFunction.indexOfX(0.1), -1);
-        assertEquals(unitArray.indexOfX(10), 0);
-        assertEquals(unitArray.indexOfX(11), -1);
+        assertEquals(getDefinedThroughArrays().indexOfX(1), 4, DELTA);
+        assertEquals(getDefinedThroughArrays().indexOfX(0.1), -1, DELTA);
+        assertEquals(getDefinedThroughMathFunction().indexOfX(8), -1, DELTA);
+        assertEquals(getDefinedThroughMathFunction().indexOfX(0.1), -1, DELTA);
+        assertEquals(getUnitArray().indexOfX(8), -1, DELTA);
+        assertEquals(getUnitArray().indexOfX(2), -1, DELTA);
     }
 
     @Test
     public void testIndexOfY() {
-        assertEquals(definedThroughArrays.indexOfY(1.), 2);
-        assertEquals(definedThroughArrays.indexOfY(1.1), -1);
-        assertEquals(definedThroughMathFunction.indexOfY(0.), 0);
-        assertEquals(definedThroughMathFunction.indexOfY(0.1), -1);
-        assertEquals(unitArray.indexOfY(100), 0);
-        assertEquals(unitArray.indexOfY(101), -1);
+        assertEquals(getDefinedThroughArrays().indexOfY(2), 5, DELTA);
+        assertEquals(getDefinedThroughArrays().indexOfY(0.1), -1, DELTA);
+        assertEquals(getDefinedThroughMathFunction().indexOfY(1), -1, DELTA);
+        assertEquals(getDefinedThroughMathFunction().indexOfY(0.1), -1, DELTA);
+        assertEquals(getUnitArray().indexOfY(1), -1, DELTA);
+        assertEquals(getUnitArray().indexOfY(0), -1, DELTA);
     }
 
     @Test
     public void testLeftBound() {
-        assertEquals(definedThroughArrays.leftBound(), -3., 1E-6);
-        assertEquals(definedThroughMathFunction.leftBound(), 0., 1E-6);
-        assertEquals(unitArray.leftBound(), 10., 1E-6);
+        assertEquals(getDefinedThroughArrays().leftBound(), -15, DELTA);
+        assertEquals(getDefinedThroughMathFunction().leftBound(), 0, DELTA);
+        assertEquals(getUnitArray().leftBound(), 6, DELTA);
     }
 
     @Test
     public void testRightBound() {
-        assertEquals(definedThroughArrays.rightBound(), 5., 1E-6);
-        assertEquals(definedThroughMathFunction.rightBound(), 20., 1E-6);
-        assertEquals(unitArray.rightBound(), 10., 1E-6);
+        assertEquals(getDefinedThroughArrays().rightBound(), 15, DELTA);
+        assertEquals(getDefinedThroughMathFunction().rightBound(), 10, DELTA);
+        assertEquals(getUnitArray().rightBound(), 6, DELTA);
     }
 }

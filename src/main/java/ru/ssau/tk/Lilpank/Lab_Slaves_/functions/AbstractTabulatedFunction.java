@@ -1,7 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
-    private int count = 0;
+    protected int count = 0;
 
     public int getCount(double x, double y) {
         return ++count;

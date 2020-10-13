@@ -15,27 +15,15 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         this.count = count;
-        double xStart = xFrom, xFinish = xTo;
-        if (xTo < xFrom) {
-            xStart = xTo;
-            xFinish = xFrom;
-        }
         xValues = new double[count];
         yValues = new double[count];
-        if (Math.abs(xFinish - xStart) < 1E-6) {
-            double yValue = source.apply(xStart);
-            for (int i = 0; i < count; i++) {
-                xValues[i] = xStart;
-                yValues[i] = yValue;
-            }
-        } else {
-            double samplingStep = (xFinish - xStart) / (count - 1);
-            double xValue = xStart;
-            for (int i = 0; i < count; i++) {
-                xValues[i] = xValue;
-                yValues[i] = source.apply(xValue);
-                xValue += samplingStep;
-            }
+
+        double step = (xTo - xFrom) / (count - 1);
+        double xMomentValue = xFrom;
+        for (int i = 0; i < count; i++) {
+            xValues[i] = xMomentValue;
+            yValues[i] = source.apply(xMomentValue);
+            xMomentValue += step;
         }
     }
 
@@ -45,7 +33,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
             return 0;
         }
         for (int i = 1; i < count; i++) {
-            if (xValues[i] > x) return i - 1;
+            if (xValues[i] > x) {
+                return i - 1;
+            }
         }
         return count;
     }
