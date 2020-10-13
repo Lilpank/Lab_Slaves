@@ -45,7 +45,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateRight() {
-        assertEquals(getDefinedThroughArrays().extrapolateRight(20), 6.25, DELTA);
+        assertEquals(getDefinedThroughArrays().extrapolateRight(10.5), 6.375, DELTA);
         assertEquals(getDefinedThroughMathFunction().extrapolateRight(10), 100, DELTA);
         assertEquals(getUnitArray().extrapolateLeft(5), 5, DELTA);
     }
