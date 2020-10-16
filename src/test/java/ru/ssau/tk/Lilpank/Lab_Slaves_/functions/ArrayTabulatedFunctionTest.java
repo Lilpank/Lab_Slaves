@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class ArrayTabulatedFunctionTest {
-    private final static double DELTA = 0.00001;
+    private final static double DELTA = 0.000001;
     private final double[] valuesX = new double[]{-15, -3, -1, 0, 1, 3, 15};
     private final double[] valuesY = new double[]{-5, -2, -1, -0, 1, 2, 9};
     private final MathFunction sqrFunc = new SqrFunction();
@@ -20,6 +20,18 @@ public class ArrayTabulatedFunctionTest {
 
     private ArrayTabulatedFunction getUnitArray() {
         return new ArrayTabulatedFunction(sqrFunc, 6, 6, 1);
+    }
+
+    @Test
+    public void testApply() {
+        assertEquals(getDefinedThroughArrays().apply(-35), -10.0, DELTA);
+        assertEquals(getDefinedThroughMathFunction().apply(-1.9), -0.9999999999999998, DELTA);
+        assertEquals(getDefinedThroughArrays().apply(35), 20.666666666666668, DELTA);
+        assertEquals(getDefinedThroughMathFunction().apply(10), 100, DELTA);
+        assertEquals(getDefinedThroughArrays().apply(0.5), 0.5, DELTA);
+        assertEquals(getDefinedThroughMathFunction().apply(0.125), 0.06578947368421052, DELTA);
+        assertEquals(getUnitArray().apply(10), 10, DELTA);
+        assertEquals(getDefinedThroughMathFunction().apply(8), 64.04432132963989, DELTA);
     }
 
     @Test

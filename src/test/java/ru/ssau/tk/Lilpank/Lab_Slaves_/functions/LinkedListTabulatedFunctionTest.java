@@ -28,6 +28,10 @@ public class LinkedListTabulatedFunctionTest {
 
         assertEquals(getListOfArray().apply(0.5), 5, DELTA);
         assertEquals(getListOfMathFunction().apply(8), 64.01662049861496, DELTA);
+
+        assertEquals(getListOfArray().apply(-1), -10, DELTA);
+        assertEquals(getListOfMathFunction().apply(-7), -98.15789473684218, DELTA);
+
     }
 
     @Test
