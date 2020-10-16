@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] xValues;
     private final double[] yValues;
-    private final int count;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         count = xValues.length;
@@ -26,6 +25,12 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
             xMomentValue += step;
         }
     }
+
+    @Override
+    public int getCount() {
+        return count;
+    }
+
 
     @Override
     protected int floorIndexOfX(double x) {
@@ -71,11 +76,6 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
 
-
-    @Override
-    public int getCount() {
-        return count;
-    }
 
     @Override
     public double getX(int index) {

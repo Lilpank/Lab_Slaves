@@ -1,7 +1,5 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.Node.Node;
-
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
 
@@ -11,6 +9,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         public Node next;
         public Node prev;
     }
+
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         for (int i = 0; i < xValues.length; i++) {

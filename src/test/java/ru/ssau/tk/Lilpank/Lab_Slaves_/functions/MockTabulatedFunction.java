@@ -6,22 +6,10 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction implements 
     final double y0 = 6.;
     final double y1 = 12.;
 
-    @Override
-    public int getCount(double x, double y) {
-        return super.getCount(x, y);
-    }
 
     @Override
     public int getCount() {
-        getCount(x0, y0);
-        int x = getCount(x1, y1);
-        if (x == 2) return x;
-        return 0;
-    }
-
-    @Override
-    public double apply(double x) {
-        return super.apply(x);
+        return 2;
     }
 
     @Override
