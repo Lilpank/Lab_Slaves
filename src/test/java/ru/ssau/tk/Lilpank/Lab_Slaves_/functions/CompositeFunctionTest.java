@@ -5,9 +5,11 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 public class CompositeFunctionTest {
+    MathFunction arctg = new ArctanFunction();
+    final double DELTA = 0.0001;
+
     @Test
     public void testApply() {
-        MathFunction arctg = new ArctanFunction();
         MathFunction self = new IdentityFunction();
         MathFunction ln = new LgFunction();
 
@@ -30,24 +32,22 @@ public class CompositeFunctionTest {
 
     @Test
     public void tabulatedFunctionTest() {
-        MathFunction arctg = new ArctanFunction();
-        MathFunction self = new IdentityFunction();
-        MathFunction ln = new LgFunction();
-        final double DELTA  = 0.0001;
-
         final double[] valuesX = new double[]{0., 1., 2., 3., 4., 5., 6., 7., 8., 9.};
-        final double[] valuesY = new double[10];
-        for (int i = 0; i < 10; i++) {
-            valuesY[i] = arctg.apply(valuesX[i]);
-        }
+        final double[] valuesY = new double[]{0., 10., 20., 30., 40., 50., 60., 70., 80., 90.};
+        TabulatedFunction tempArray = new ArrayTabulatedFunction(valuesX, valuesY);
+        TabulatedFunction tempLL = new LinkedListTabulatedFunction(valuesX, valuesY);
+        MathFunction sqr = new SqrFunction();
 
-        LinkedListTabulatedFunction temp = new LinkedListTabulatedFunction(valuesX, valuesY);
-        assertEquals(temp.andThen(arctg).apply(-Math.PI/4), -0.5527173621691903, DELTA);
-        assertEquals(temp.andThen(arctg).apply(-Math.PI/2), -0.8896437320754238, DELTA);
-        assertEquals(temp.andThen(arctg).apply(0),0, DELTA);
-        assertEquals(temp.andThen(arctg).apply(Math.PI/4), 0.5527173621691903, DELTA);
-        assertEquals(temp.andThen(arctg).apply(Math.PI/2),0.7696823514451917, DELTA);
-        assertEquals(temp.andThen(arctg).apply(6), 0.9524497451540792, DELTA);
-        assertEquals(temp.andThen(arctg).apply(10), 0.9746453159844062, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(sqr).apply(1.5), 22500.0, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(sqr).apply(3), 90000.0, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(sqr).apply(0.5), 2500.0, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(sqr).apply(0.125), 156.25, DELTA);
+
+        assertEquals(tempLL.andThen(tempArray).andThen(arctg).apply(-Math.PI / 2), -1.5644302150732212, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(arctg).apply(0), 0, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(arctg).apply(Math.PI / 4), 1.5580646193133636, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(arctg).apply(Math.PI / 2), 1.5644302150732212, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(arctg).apply(6), 1.5691296616714372, DELTA);
+        assertEquals(tempLL.andThen(tempArray).andThen(arctg).apply(10), 1.5697963271282298, DELTA);
     }
 }

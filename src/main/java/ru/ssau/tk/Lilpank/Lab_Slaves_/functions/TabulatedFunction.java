@@ -1,6 +1,6 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-public interface TabulatedFunction {
+public interface TabulatedFunction extends MathFunction{
     int getCount();
     double getX(int index);
     double getY(int index);
