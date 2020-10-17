@@ -10,11 +10,11 @@ public class LinkedListTabulatedFunctionTest {
     private final MathFunction sqrTestFunction = new SqrFunction();
     private final double DELTA = 0.00001;
 
-    private LinkedListTabulatedFunction getListOfArray() {
+    private AbstractTabulatedFunction getListOfArray() {
         return new LinkedListTabulatedFunction(xValues, yValues);
     }
 
-    private LinkedListTabulatedFunction getListOfMathFunction() {
+    private AbstractTabulatedFunction getListOfMathFunction() {
         return new LinkedListTabulatedFunction(sqrTestFunction, 5, 10, 20);
     }
 
@@ -46,7 +46,7 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testAddNode() {
-        LinkedListTabulatedFunction testList = getListOfArray();
+        LinkedListTabulatedFunction testList = (LinkedListTabulatedFunction) getListOfArray();
         testList.addNode(6, 60);
         assertEquals(testList.rightBound(), 6, DELTA);
     }
@@ -83,7 +83,7 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testSetY() {
-        LinkedListTabulatedFunction testListArray = getListOfArray();
+        LinkedListTabulatedFunction testListArray = (LinkedListTabulatedFunction) getListOfArray();
         testListArray.setY(4, 60);
         assertEquals(testListArray.getY(4), 60, DELTA);
     }
@@ -98,7 +98,6 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testIndexOfY() {
-
         assertEquals(getListOfArray().indexOfY(10), 0);
         assertEquals(getListOfMathFunction().indexOfY(5), -1);
     }
@@ -118,17 +117,16 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testExtrapolateRight() {
-
-        LinkedListTabulatedFunction testListArray = getListOfArray();
-        LinkedListTabulatedFunction testListMath = getListOfMathFunction();
+        LinkedListTabulatedFunction testListArray = (LinkedListTabulatedFunction) getListOfArray();
+        LinkedListTabulatedFunction testListMath = (LinkedListTabulatedFunction) getListOfMathFunction();
         assertEquals(testListArray.extrapolateRight(8), 80, DELTA);
         assertEquals(testListMath.extrapolateRight(10), 100, DELTA);
     }
 
     @Test
     public void testInterpolate() {
-        LinkedListTabulatedFunction testListArray = getListOfArray();
-        LinkedListTabulatedFunction testListMath = getListOfMathFunction();
+        LinkedListTabulatedFunction testListArray = (LinkedListTabulatedFunction) getListOfArray();
+        LinkedListTabulatedFunction testListMath = (LinkedListTabulatedFunction) getListOfMathFunction();
         assertEquals(testListArray.interpolate(2.5, 2), 25);
         assertEquals(testListMath.interpolate(5.07018, 3), 25.00005401662049, DELTA);
     }

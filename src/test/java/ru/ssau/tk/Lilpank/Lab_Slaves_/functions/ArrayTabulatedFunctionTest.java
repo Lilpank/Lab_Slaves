@@ -10,15 +10,16 @@ public class ArrayTabulatedFunctionTest {
     private final double[] valuesY = new double[]{-5, -2, -1, -0, 1, 2, 9};
     private final MathFunction sqrFunc = new SqrFunction();
 
-    private ArrayTabulatedFunction getDefinedThroughArrays() {
-        return new ArrayTabulatedFunction(valuesX, valuesY);
+    private AbstractTabulatedFunction getDefinedThroughArrays() {
+         return new ArrayTabulatedFunction(valuesX, valuesY);
     }
 
-    private ArrayTabulatedFunction getDefinedThroughMathFunction() {
+
+    private AbstractTabulatedFunction getDefinedThroughMathFunction() {
         return new ArrayTabulatedFunction(sqrFunc, 0, 10, 20);
     }
 
-    private ArrayTabulatedFunction getUnitArray() {
+    private AbstractTabulatedFunction getUnitArray() {
         return new ArrayTabulatedFunction(sqrFunc, 6, 6, 1);
     }
 
@@ -104,9 +105,9 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testSetY() {
-        ArrayTabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
-        ArrayTabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
-        ArrayTabulatedFunction testUnitArray = getUnitArray();
+        AbstractTabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
+        AbstractTabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
+        AbstractTabulatedFunction testUnitArray = getUnitArray();
 
         testDefinedThroughArrays.setY(5, 250);
         testDefinedThroughMathFunction.setY(0, 150);
