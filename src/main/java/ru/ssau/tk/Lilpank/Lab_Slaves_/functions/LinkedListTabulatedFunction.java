@@ -1,6 +1,6 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements MathFunction{
     private Node head;
 
     protected static class Node {

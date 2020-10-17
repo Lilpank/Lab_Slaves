@@ -19,6 +19,6 @@ public class MathFunctionTest {
         assertEquals(function1.andThen(one).apply(0), 1);
         assertEquals(function1.apply(10), 10000);
         assertEquals(function2.apply(100), 16);
-
     }
+
 }
