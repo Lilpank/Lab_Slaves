@@ -52,21 +52,21 @@ public class ArrayTabulatedFunctionTest {
     public void testExtrapolateLeft() {
         assertEquals(getDefinedThroughArrays().extrapolateLeft(-10), -3.75, DELTA);
         assertEquals(getDefinedThroughMathFunction().extrapolateLeft(9), 4.7368421052631575, DELTA);
-        assertEquals(getUnitArray().extrapolateLeft(1), 1, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().extrapolateLeft(1));
     }
 
     @Test
     public void testExtrapolateRight() {
         assertEquals(getDefinedThroughArrays().extrapolateRight(10.5), 6.375, DELTA);
         assertEquals(getDefinedThroughMathFunction().extrapolateRight(10), 100, DELTA);
-        assertEquals(getUnitArray().extrapolateLeft(5), 5, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().extrapolateLeft(5));
     }
 
     @Test
     public void testInterpolate() {
         assertEquals(getDefinedThroughArrays().interpolate(0.5, getDefinedThroughArrays().floorIndexOfX(0.5)), 0.5, DELTA);
         assertEquals(getDefinedThroughMathFunction().interpolate(10, getDefinedThroughMathFunction().floorIndexOfX(10)), 100, DELTA);
-        assertEquals(getUnitArray().interpolate(10, getUnitArray().floorIndexOfX(10)), 10, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().interpolate(10, getUnitArray().floorIndexOfX(10)));
     }
 
 
@@ -74,7 +74,7 @@ public class ArrayTabulatedFunctionTest {
     public void testGetCount() {
         assertEquals(getDefinedThroughArrays().getCount(), 7);
         assertEquals(getDefinedThroughMathFunction().getCount(), 20);
-        assertEquals(getUnitArray().getCount(), 1);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().getCount());
     }
 
     @Test
@@ -86,8 +86,6 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().getX(0), 0, DELTA);
         assertEquals(getDefinedThroughMathFunction().getX(19), 10, DELTA);
         assertEquals(getDefinedThroughMathFunction().getX(18), 9.473684210526317, DELTA);
-
-        assertEquals(getUnitArray().getX(0), 6, DELTA);
     }
 
     @Test
@@ -99,21 +97,18 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().getY(0), 0, DELTA);
         assertEquals(getDefinedThroughMathFunction().getY(6), 9.972299168975066, DELTA);
         assertEquals(getDefinedThroughMathFunction().getY(19), 100.00000000000004, DELTA);
-        assertEquals(getUnitArray().getY(0), 36, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().getY(0));
     }
 
     @Test
     public void testSetY() {
         AbstractTabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
         AbstractTabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
-        AbstractTabulatedFunction testUnitArray = getUnitArray();
 
         testDefinedThroughArrays.setY(5, 250);
         testDefinedThroughMathFunction.setY(0, 150);
-        testUnitArray.setY(0, 9);
         assertEquals(testDefinedThroughArrays.getY(5), 250);
         assertEquals(testDefinedThroughMathFunction.getY(0), 150);
-        assertEquals(testUnitArray.getY(0), 9, DELTA);
     }
 
     @Test
@@ -122,8 +117,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughArrays().indexOfX(0.1), -1, DELTA);
         assertEquals(getDefinedThroughMathFunction().indexOfX(8), -1, DELTA);
         assertEquals(getDefinedThroughMathFunction().indexOfX(0.1), -1, DELTA);
-        assertEquals(getUnitArray().indexOfX(8), -1, DELTA);
-        assertEquals(getUnitArray().indexOfX(2), -1, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().indexOfX(8));
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().indexOfX(2));
     }
 
     @Test
@@ -132,21 +127,21 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughArrays().indexOfY(0.1), -1, DELTA);
         assertEquals(getDefinedThroughMathFunction().indexOfY(1), -1, DELTA);
         assertEquals(getDefinedThroughMathFunction().indexOfY(0.1), -1, DELTA);
-        assertEquals(getUnitArray().indexOfY(1), -1, DELTA);
-        assertEquals(getUnitArray().indexOfY(0), -1, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().indexOfY(1));
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().indexOfY(0));
     }
 
     @Test
     public void testLeftBound() {
         assertEquals(getDefinedThroughArrays().leftBound(), -15, DELTA);
         assertEquals(getDefinedThroughMathFunction().leftBound(), 0, DELTA);
-        assertEquals(getUnitArray().leftBound(), 6, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().leftBound());
     }
 
     @Test
     public void testRightBound() {
         assertEquals(getDefinedThroughArrays().rightBound(), 15, DELTA);
         assertEquals(getDefinedThroughMathFunction().rightBound(), 10, DELTA);
-        assertEquals(getUnitArray().rightBound(), 6, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().rightBound());
     }
 }
