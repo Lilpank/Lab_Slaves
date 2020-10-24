@@ -11,7 +11,7 @@ public class ArrayTabulatedFunctionTest {
     private final MathFunction sqrFunc = new SqrFunction();
 
     private AbstractTabulatedFunction getDefinedThroughArrays() {
-         return new ArrayTabulatedFunction(valuesX, valuesY);
+        return new ArrayTabulatedFunction(valuesX, valuesY);
     }
 
 
@@ -31,7 +31,6 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().apply(10), 100, DELTA);
         assertEquals(getDefinedThroughArrays().apply(0.5), 0.5, DELTA);
         assertEquals(getDefinedThroughMathFunction().apply(0.125), 0.06578947368421052, DELTA);
-        assertEquals(getUnitArray().apply(10), 10, DELTA);
         assertEquals(getDefinedThroughMathFunction().apply(8), 64.04432132963989, DELTA);
     }
 
@@ -44,9 +43,9 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughMathFunction().floorIndexOfX(-1), 0, DELTA);
         assertEquals(getDefinedThroughMathFunction().floorIndexOfX(20), 20, DELTA);
 
-        assertEquals(getUnitArray().floorIndexOfX(0), 0, DELTA);
-        assertEquals(getUnitArray().floorIndexOfX(6), 1, DELTA);
-        assertEquals(getUnitArray().floorIndexOfX(10000), 1, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().floorIndexOfX(0));
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().floorIndexOfX(6));
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().floorIndexOfX(10000));
     }
 
     @Test

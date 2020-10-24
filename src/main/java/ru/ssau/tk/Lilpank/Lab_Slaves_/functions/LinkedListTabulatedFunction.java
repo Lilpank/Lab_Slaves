@@ -1,6 +1,6 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
 
     protected static class Node {
@@ -12,12 +12,19 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
 
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
-        for (int i = 0; i < xValues.length; i++) {
-            this.addNode(xValues[i], yValues[i]);
+        if (xValues.length <= 2) {
+            throw new IllegalArgumentException("Длина меньше минимальной.");
+        } else {
+            for (int i = 0; i < xValues.length; i++) {
+                this.addNode(xValues[i], yValues[i]);
+            }
         }
     }
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        if (xFrom >= xTo) {
+            throw new IllegalArgumentException("Длина меньше минимальной.");
+        }
         double step = (xTo - xFrom) / (count - 1);
         for (int i = 0; i < count; i++) {
             this.addNode(xFrom, source.apply(xFrom));
@@ -83,12 +90,20 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
 
     @Override
     public double getX(int index) {
-        return getNode(index).x;
+        if (index < 0 | index >= count) {
+            throw new IllegalArgumentException();
+        } else {
+            return getNode(index).x;
+        }
     }
 
     @Override
     public double getY(int index) {
-        return getNode(index).y;
+        if (index < 0 | index >= count) {
+            throw new IllegalArgumentException();
+        } else {
+            return getNode(index).y;
+        }
     }
 
     @Override
@@ -122,18 +137,22 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction{
 
     @Override
     protected int floorIndexOfX(double x) {
-        Node indexNode = head;
-        for (int i = 0; i < count; i++) {
-            if (indexNode.x < x) {
-                indexNode = indexNode.next;
-            } else {
-                if (i == 0) {
-                    return 0;
+        if (x < leftBound()) {
+            throw new IllegalArgumentException();
+        } else {
+            Node indexNode = head;
+            for (int i = 0; i < count; i++) {
+                if (indexNode.x < x) {
+                    indexNode = indexNode.next;
+                } else {
+                    if (i == 0) {
+                        return 0;
+                    }
+                    return i - 1;
                 }
-                return i - 1;
             }
+            return getCount();
         }
-        return getCount();
     }
 
     @Override
