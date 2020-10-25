@@ -77,7 +77,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double getX(int index) {
-        if (index <= -0 | index >= xValues.length) {
+        if (index < 0 | index >= xValues.length) {
             throw new ArrayIndexOutOfBoundsException();
         } else {
             return xValues[index];

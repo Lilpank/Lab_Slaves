@@ -19,6 +19,16 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
+    public void testIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-1));
+        assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-6));
+
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{1, 2}));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{}, new double[]{1, 2}));
+
+    }
+
+    @Test
     public void testApply() {
         assertEquals(getListOfArray().apply(3), 30, DELTA);
         assertEquals(getListOfMathFunction().apply(5), 25, DELTA);
@@ -105,7 +115,6 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testFloorIndexOfX() {
         assertEquals(getListOfArray().floorIndexOfX(3.7), 2);
-        assertEquals(getListOfMathFunction().floorIndexOfX(-10), 0);
         assertEquals(getListOfMathFunction().floorIndexOfX(100), 20);
     }
 
