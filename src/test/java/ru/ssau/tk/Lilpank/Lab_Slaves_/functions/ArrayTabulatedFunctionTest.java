@@ -24,6 +24,18 @@ public class ArrayTabulatedFunctionTest {
     }
 
     @Test
+    public void testArrayIndexOutOfBoundsException(){
+        assertThrows(ArrayIndexOutOfBoundsException.class,()-> getDefinedThroughArrays().getX(-1));
+        assertThrows(ArrayIndexOutOfBoundsException.class,()-> getDefinedThroughArrays().getX(-10));
+        assertThrows(ArrayIndexOutOfBoundsException.class,()-> getDefinedThroughArrays().getX(((int)Double.NEGATIVE_INFINITY)));
+    }
+    @Test
+    public void testIllegalArgumentException(){
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().floorIndexOfX(0));
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().extrapolateLeft(1));
+        assertThrows(IllegalArgumentException.class, () -> getUnitArray().extrapolateLeft(5));
+    }
+    @Test
     public void testApply() {
         assertEquals(getDefinedThroughArrays().apply(-35), -10.0, DELTA);
         assertEquals(getDefinedThroughMathFunction().apply(-1.9), -0.9999999999999998, DELTA);
@@ -74,7 +86,6 @@ public class ArrayTabulatedFunctionTest {
     public void testGetCount() {
         assertEquals(getDefinedThroughArrays().getCount(), 7);
         assertEquals(getDefinedThroughMathFunction().getCount(), 20);
-        assertThrows(IllegalArgumentException.class, () -> getUnitArray().getCount());
     }
 
     @Test
