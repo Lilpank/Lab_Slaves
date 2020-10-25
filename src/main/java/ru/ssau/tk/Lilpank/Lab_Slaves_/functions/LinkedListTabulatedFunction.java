@@ -1,5 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
+import exceptions.InterpolationException;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     private Node head;
 
@@ -19,6 +21,9 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
                 this.addNode(xValues[i], yValues[i]);
             }
         }
+        checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
+
     }
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
@@ -179,6 +184,9 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         }
         Node leftNode = getNode(floorIndex);
         Node rightNode = leftNode.next;
+        if (x < leftNode.x || x > rightNode.x) {
+            throw new InterpolationException("X не находится внутри интервала интерполирования.");
+        }
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
     }
 }
