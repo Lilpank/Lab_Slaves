@@ -1,8 +1,10 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-import exceptions.DifferentLengthOfArraysException;
 import exceptions.InterpolationException;
 import org.testng.annotations.Test;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.testng.Assert.*;
 
@@ -25,6 +27,34 @@ public class LinkedListTabulatedFunctionTest {
         assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-1));
         assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-6));
         assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{1, 2}));
+    }
+
+    @Test
+    public void testIteratorWhile() {
+        AbstractTabulatedFunction tempArrayList = getListOfArray();
+        Iterator<Point> tempIterator = tempArrayList.iterator();
+
+        int i = 0;
+        while (tempIterator.hasNext()) {
+            Point myPoint = tempIterator.next();
+            assertEquals(tempArrayList.getX(i), myPoint.x);
+            assertEquals(tempArrayList.getY(i++), myPoint.y);
+
+        }
+        assertEquals(tempArrayList.getCount(), i);
+
+        assertThrows(NoSuchElementException.class, tempIterator::next);
+    }
+
+    @Test
+    public void testIteratorFor_each() {
+        AbstractTabulatedFunction tempArrayList = getListOfArray();
+        int i = 0;
+        for (Point point : tempArrayList) {
+            assertEquals(point.x, tempArrayList.getX(i), DELTA);
+            assertEquals(point.y, tempArrayList.getY(i++), DELTA);
+        }
+        assertEquals(tempArrayList.getCount(), i);
     }
 
     @Test
@@ -138,7 +168,7 @@ public class LinkedListTabulatedFunctionTest {
 
         assertThrows(InterpolationException.class, () -> testListArray.interpolate(2.5, 2));
         assertThrows(InterpolationException.class, () -> testListMath.interpolate(2.1, 3));
-        assertThrows(InterpolationException.class,()-> testListArray.interpolate(-2,0));
-        assertThrows(InterpolationException.class,()-> testListMath.interpolate(1.,0));
+        assertThrows(InterpolationException.class, () -> testListArray.interpolate(-2, 0));
+        assertThrows(InterpolationException.class, () -> testListMath.interpolate(1., 0));
     }
 }
