@@ -1,5 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
+import exceptions.InterpolationException;
+
 import java.util.Arrays;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
@@ -7,6 +9,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+        checkSorted(xValues);
+        checkLengthIsTheSame(xValues, yValues);
         if (xValues.length <= 2) {
             throw new IllegalArgumentException("Длина меньше минимальной.");
         } else {
@@ -67,6 +71,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     protected double interpolate(double x, int floorIndex) {
+        if (x < xValues[floorIndex] || x > xValues[floorIndex + 1]) {
+            throw new InterpolationException("X не находится внутри интервала интерполирования.");
+        }
         if (floorIndex == count) {
             return extrapolateRight(x);
         } else {
