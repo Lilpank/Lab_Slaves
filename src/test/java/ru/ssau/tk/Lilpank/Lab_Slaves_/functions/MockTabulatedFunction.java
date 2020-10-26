@@ -1,5 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
+import java.util.Iterator;
+
 public class MockTabulatedFunction extends AbstractTabulatedFunction implements TabulatedFunction {
     final double x0 = 3.;
     final double x1 = 5.;
@@ -20,6 +22,11 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction implements 
     @Override
     public double getY(int index) {
         return (index == 1 ? y1 : y0);
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

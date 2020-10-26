@@ -3,14 +3,16 @@ package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 import exceptions.InterpolationException;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] xValues;
     private final double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
-        checkSorted(xValues);
         checkLengthIsTheSame(xValues, yValues);
+        checkSorted(xValues);
+
         if (xValues.length <= 2) {
             throw new IllegalArgumentException("Длина меньше минимальной.");
         } else {
@@ -84,7 +86,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double getX(int index) {
-        if (index < 0 | index >= xValues.length) {
+        if (index < 0 || index >= xValues.length) {
             throw new ArrayIndexOutOfBoundsException();
         } else {
             return xValues[index];
@@ -98,6 +100,11 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
         } else {
             return yValues[index];
         }
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

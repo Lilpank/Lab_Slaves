@@ -1,5 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
+import exceptions.DifferentLengthOfArraysException;
+import exceptions.InterpolationException;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -22,10 +24,7 @@ public class LinkedListTabulatedFunctionTest {
     public void testIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-1));
         assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-6));
-
         assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{1, 2}));
-        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{}, new double[]{1, 2}));
-
     }
 
     @Test
@@ -133,10 +132,13 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testInterpolate() {
+    public void testInterpolationException() {
         LinkedListTabulatedFunction testListArray = (LinkedListTabulatedFunction) getListOfArray();
         LinkedListTabulatedFunction testListMath = (LinkedListTabulatedFunction) getListOfMathFunction();
-        assertEquals(testListArray.interpolate(2.5, 2), 25);
-        assertEquals(testListMath.interpolate(5.07018, 3), 25.00005401662049, DELTA);
+
+        assertThrows(InterpolationException.class, () -> testListArray.interpolate(2.5, 2));
+        assertThrows(InterpolationException.class, () -> testListMath.interpolate(2.1, 3));
+        assertThrows(InterpolationException.class,()-> testListArray.interpolate(-2,0));
+        assertThrows(InterpolationException.class,()-> testListMath.interpolate(1.,0));
     }
 }
