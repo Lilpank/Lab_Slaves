@@ -4,6 +4,7 @@ import exceptions.InterpolationException;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     private final double[] xValues;
@@ -24,7 +25,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         if (xFrom >= xTo) {
-            throw new IllegalArgumentException("Длина меньше минимальной.");
+            throw new IllegalArgumentException("Неправильные значения параметров.");
         } else {
             this.count = count;
             xValues = new double[count];
@@ -95,7 +96,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double getY(int index) {
-        if (index < 0 | index >= yValues.length) {
+        if (index < 0 || index >= yValues.length) {
             throw new ArrayIndexOutOfBoundsException();
         } else {
             return yValues[index];
@@ -104,7 +105,24 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
+        return new Iterator<Point>() {
+            int i = 0;
+
+            @Override
+            public boolean hasNext() {
+                return i < count;
+            }
+
+            @Override
+            public Point next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                Point point = new Point(xValues[i], yValues[i]);
+                i++;
+                return point;
+            }
+        };
     }
 
     @Override
