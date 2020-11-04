@@ -2,7 +2,8 @@ package operations;
 
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.MathFunction;
 
-public abstract class SteppingDifferentialOperator {
+public abstract class SteppingDifferentialOperator implements DifferentialOperator<MathFunction> {
+
     protected double step;
 
     public SteppingDifferentialOperator(double step) {
