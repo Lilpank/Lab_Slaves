@@ -36,6 +36,9 @@ public class AbstractTabulatedFunctionTest {
 
     @Test
     public void testToString() {
-        System.out.println(new LinkedListTabulatedFunction(new double[]{-15, -3, -1, 0, 1, 3, 15}, new double[]{-15, -3, -1, 0, 1, 3, 2}).toString());
+        assertEquals(new LinkedListTabulatedFunction(new double[]{-15, -3, -1, 0}, new double[]{-15, -3, -1, 0}).toString(),
+                "LinkedListTabulatedFunction size = 4\n[-15.0; -15.0]\n[-3.0; -3.0]\n[-1.0; -1.0]\n[0.0; 0.0]\n");
+        assertEquals(new ArrayTabulatedFunction(new double[]{-15, -3, -1, 0}, new double[]{-15, -3, -1, 0}).toString(),
+                "ArrayTabulatedFunction size = 4\n[-15.0; -15.0]\n[-3.0; -3.0]\n[-1.0; -1.0]\n[0.0; 0.0]\n" );
     }
 }
