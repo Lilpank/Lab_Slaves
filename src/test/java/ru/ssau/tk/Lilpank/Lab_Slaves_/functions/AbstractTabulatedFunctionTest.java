@@ -33,4 +33,9 @@ public class AbstractTabulatedFunctionTest {
         assertThrows(ArrayIsNotSortedException.class, () -> AbstractTabulatedFunction.checkSorted(valuesX4));
 
     }
+
+    @Test
+    public void testToString() {
+        System.out.println(new LinkedListTabulatedFunction(new double[]{-15, -3, -1, 0, 1, 3, 15}, new double[]{-15, -3, -1, 0, 1, 3, 2}).toString());
+    }
 }
