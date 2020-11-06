@@ -2,11 +2,13 @@ package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
 import exceptions.InterpolationException;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
+    private static final long serialVersionUID = 1545272046013992252L;
     private final double[] xValues;
     private final double[] yValues;
 

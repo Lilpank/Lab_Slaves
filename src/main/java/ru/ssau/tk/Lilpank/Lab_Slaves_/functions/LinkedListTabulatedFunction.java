@@ -2,10 +2,12 @@ package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
 import exceptions.InterpolationException;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
+    private static final long serialVersionUID = 6518678659890191671L;
     private Node head;
 
     protected static class Node {

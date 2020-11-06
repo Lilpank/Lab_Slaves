@@ -14,7 +14,7 @@ public class TabulatedFunctionFileWriter {
         TabulatedFunction arrayFunction = new ArrayTabulatedFunction(new double[]{1, 4, 6}, new double[]{16, 25, 36});
 
         try (BufferedWriter outArray = new BufferedWriter(new FileWriter("output/array function.txt"));
-            BufferedWriter outList = new BufferedWriter(new FileWriter("output/linked list function.txt"))){
+             BufferedWriter outList = new BufferedWriter(new FileWriter("output/linked list function.txt"))) {
 
             FunctionsIO.writeTabulatedFunction(outList, listFunction);
             FunctionsIO.writeTabulatedFunction(outArray, arrayFunction);
