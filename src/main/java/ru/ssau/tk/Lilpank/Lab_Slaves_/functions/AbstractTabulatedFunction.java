@@ -4,11 +4,6 @@ import exceptions.ArrayIsNotSortedException;
 import exceptions.DifferentLengthOfArraysException;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
-    protected int count;
-
-    public int getCount() {
-        return count;
-    }
 
     public double apply(double x) {
         if (x < leftBound()) {

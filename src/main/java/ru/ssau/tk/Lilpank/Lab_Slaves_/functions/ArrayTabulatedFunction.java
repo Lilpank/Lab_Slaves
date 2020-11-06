@@ -11,6 +11,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     private static final long serialVersionUID = 1545272046013992252L;
     private final double[] xValues;
     private final double[] yValues;
+    private int count = 0;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         checkLengthIsTheSame(xValues, yValues);
