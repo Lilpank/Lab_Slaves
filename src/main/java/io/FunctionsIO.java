@@ -62,10 +62,13 @@ final public class FunctionsIO {
         return factory.create(xValues, yValues);
     }
 
-    static void serialize(BufferedOutputStream stream, TabulatedFunction function) throws IOException {
+    public static void serialize(BufferedOutputStream stream, TabulatedFunction function) throws IOException {
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(stream);
         objectOutputStream.writeObject(function);
         objectOutputStream.flush();
     }
 
+    public static TabulatedFunction deserialize(BufferedInputStream stream) throws IOException, ClassNotFoundException {
+        return (TabulatedFunction) new ObjectInputStream(stream).readObject();
+    }
 }
