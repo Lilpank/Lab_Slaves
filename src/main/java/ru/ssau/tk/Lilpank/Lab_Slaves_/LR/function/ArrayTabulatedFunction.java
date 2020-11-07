@@ -17,7 +17,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         checkLengthIsTheSame(xValues, yValues);
         checkSorted(xValues);
 
-        if (xValues.length <= 2) {
+        if (xValues.length < 2) {
             throw new IllegalArgumentException("Длина меньше минимальной.");
         } else {
             count = xValues.length;
@@ -90,20 +90,12 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public double getX(int index) {
-        if (index < 0 || index >= xValues.length) {
-            throw new ArrayIndexOutOfBoundsException();
-        } else {
-            return xValues[index];
-        }
+        return xValues[index];
     }
 
     @Override
     public double getY(int index) {
-        if (index < 0 || index >= yValues.length) {
-            throw new ArrayIndexOutOfBoundsException();
-        } else {
-            return yValues[index];
-        }
+        return yValues[index];
     }
 
     @Override

@@ -24,7 +24,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         checkLengthIsTheSame(xValues, yValues);
         checkSorted(xValues);
 
-        if (xValues.length <= 2) {
+        if (xValues.length < 2) {
             throw new IllegalArgumentException("Длина меньше минимальной.");
         } else {
             for (int i = 0; i < xValues.length; i++) {
