@@ -79,7 +79,7 @@ public class TabulatedFunctionOperationServiceTest {
             assertEquals(point.x, xValues[i]);
             assertEquals(point.y, yValuesArray[i] + yValuesArray[i++]);
         }
-        assertTrue(testSumOfArrays instanceof ArrayTabulatedFunction);
+        assertTrue(testSumOfArrays instanceof LinkedListTabulatedFunction);
         TabulatedFunction testSumOfLists = operationService.sum(testListFunction, testListFunction);
         i = 0;
         for (Point point : testSumOfLists) {
@@ -101,7 +101,7 @@ public class TabulatedFunctionOperationServiceTest {
         TabulatedFunction testListFunction = testList();
 
         TabulatedFunction testSubtractOfArrays = operationService.subtract(testArrayFunction, testArrayFunction);
-        assertTrue(testSubtractOfArrays instanceof ArrayTabulatedFunction);
+        assertTrue(testSubtractOfArrays instanceof LinkedListTabulatedFunction);
         int i = 0;
         for (Point point : testSubtractOfArrays) {
             assertEquals(point.x, xValues[i]);
