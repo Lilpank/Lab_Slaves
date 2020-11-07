@@ -33,7 +33,6 @@ public class ArrayTabulatedFunctionTest {
         assertThrows(IllegalArgumentException.class, () -> getUnitArray().extrapolateLeft(1));
         assertThrows(IllegalArgumentException.class, () -> getUnitArray().extrapolateLeft(5));
         assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(new double[]{1},new double[]{1}));
-        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(new double[]{1,3},new double[]{1,2}));
     }
 
     @Test

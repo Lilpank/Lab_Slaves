@@ -1,8 +1,5 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function;
 
-import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.AbstractTabulatedFunction;
-import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.ArrayTabulatedFunction;
-import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.LinkedListTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.exceptions.DifferentLengthOfArraysException;
 import org.testng.annotations.Test;

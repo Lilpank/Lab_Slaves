@@ -27,7 +27,6 @@ public class LinkedListTabulatedFunctionTest {
     public void testIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-1));
         assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-6));
-        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{1, 2}));
         assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrTestFunction, 10, 2, 10));
         assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrTestFunction, 300, 200, -5));
         assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrTestFunction, 2452, 5, 100000));

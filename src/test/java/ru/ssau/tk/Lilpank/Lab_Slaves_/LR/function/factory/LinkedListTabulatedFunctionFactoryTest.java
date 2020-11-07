@@ -2,7 +2,6 @@ package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.factory;
 
 import org.testng.annotations.Test;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.LinkedListTabulatedFunction;
-import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.factory.LinkedListTabulatedFunctionFactory;
 
 import static org.testng.Assert.*;
 
