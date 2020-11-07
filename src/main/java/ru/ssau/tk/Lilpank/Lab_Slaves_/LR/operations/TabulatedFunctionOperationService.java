@@ -39,11 +39,9 @@ public class TabulatedFunctionOperationService {
     }
 
     private TabulatedFunction doOperation(TabulatedFunction a, TabulatedFunction b, BiOperation operation) {
-
         if (a.getCount() != b.getCount()) {
             throw new InconsistentFunctionsException("Количества записей в табулированных функциях не совпадают.");
         }
-
         Point[] aDots = asPoints(a);
         Point[] bDots = asPoints(b);
         double[] xValues = new double[a.getCount()];
