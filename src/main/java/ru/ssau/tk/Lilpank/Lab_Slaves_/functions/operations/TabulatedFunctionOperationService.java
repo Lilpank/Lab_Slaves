@@ -1,7 +1,6 @@
-package operations;
+package ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations;
 
-import exceptions.InconsistentFunctionsException;
-import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.ArrayTabulatedFunction;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.exceptions.InconsistentFunctionsException;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.Point;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.TabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.factory.ArrayTabulatedFunctionFactory;

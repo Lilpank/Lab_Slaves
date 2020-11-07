@@ -1,7 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-import exceptions.ArrayIsNotSortedException;
-import exceptions.DifferentLengthOfArraysException;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.exceptions.ArrayIsNotSortedException;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.exceptions.DifferentLengthOfArraysException;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
@@ -36,7 +36,7 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
     protected static void checkSorted(double[] xValues) {
         for (int i = 0; i < xValues.length - 1; i++) {
-            if (xValues[i] > xValues[i + 1]) {
+            if (xValues[i + 1] < xValues[i]) {
                 throw new ArrayIsNotSortedException("Элементы массива xValues не сортированы.");
             }
         }

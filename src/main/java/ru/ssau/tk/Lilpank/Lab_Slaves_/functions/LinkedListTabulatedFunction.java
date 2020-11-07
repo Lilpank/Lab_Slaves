@@ -1,6 +1,6 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-import exceptions.InterpolationException;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.exceptions.InterpolationException;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -34,7 +34,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         if (xFrom >= xTo) {
-            throw new IllegalArgumentException("Длина меньше минимальной.");
+            throw new IllegalArgumentException("Неправильные значения параметров.");
         } else {
             double step = (xTo - xFrom) / (count - 1);
             for (int i = 0; i < count; i++) {
@@ -73,6 +73,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     private Node getNode(int index) {
+        checkIndex(index);
         Node indexNode;
         if (index <= (count / 2)) {
             indexNode = head;
@@ -93,7 +94,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 }
             }
         }
-        return null;
+        throw new UnsupportedOperationException("");
     }
 
     @Override
@@ -123,6 +124,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     public Iterator<Point> iterator() {
         return new Iterator<Point>() {
             Node node = head;
+
             @Override
             public boolean hasNext() {
                 return node != null;
@@ -197,20 +199,12 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     protected double extrapolateLeft(double x) {
-        if (head.x == head.prev.x) {
-            return head.y;
-        } else {
-            return interpolate(x, head.x, head.next.x, head.y, head.next.y);
-        }
+        return interpolate(x, head.x, head.next.x, head.y, head.next.y);
     }
 
     @Override
     protected double extrapolateRight(double x) {
-        if (head.x == head.prev.x) {
-            return head.y;
-        } else {
-            return interpolate(x, head.prev.prev.x, head.prev.x, head.prev.prev.y, head.prev.y);
-        }
+        return interpolate(x, head.prev.prev.x, head.prev.x, head.prev.prev.y, head.prev.y);
     }
 
     @Override
@@ -225,6 +219,12 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             } else {
                 return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
             }
+        }
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index > count - 1) {
+            throw new IndexOutOfBoundsException("Индекс за пределами списка.");
         }
     }
 }

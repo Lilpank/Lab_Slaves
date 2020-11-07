@@ -1,6 +1,6 @@
-package operations;
+package ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations;
 
-import exceptions.InconsistentFunctionsException;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.exceptions.InconsistentFunctionsException;
 import org.testng.annotations.Test;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.LinkedListTabulatedFunction;
@@ -8,6 +8,7 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.Point;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.TabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.factory.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations.TabulatedFunctionOperationService;
 
 import static org.testng.Assert.*;
 

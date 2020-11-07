@@ -1,4 +1,4 @@
-package io;
+package ru.ssau.tk.Lilpank.Lab_Slaves_.functions.io;
 
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.LinkedListTabulatedFunction;

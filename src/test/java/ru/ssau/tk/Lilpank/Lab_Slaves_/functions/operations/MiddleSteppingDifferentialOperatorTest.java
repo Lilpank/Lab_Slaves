@@ -1,4 +1,4 @@
-package operations;
+package ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations;
 
 import org.testng.annotations.Test;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.SqrFunction;

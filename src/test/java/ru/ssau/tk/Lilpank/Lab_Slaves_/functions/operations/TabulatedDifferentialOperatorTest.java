@@ -1,4 +1,4 @@
-package operations;
+package ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations;
 
 import org.testng.annotations.Test;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.ArrayTabulatedFunction;
@@ -6,6 +6,7 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.LinkedListTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.TabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.factory.LinkedListTabulatedFunctionFactory;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations.TabulatedDifferentialOperator;
 
 import static org.testng.Assert.*;
 

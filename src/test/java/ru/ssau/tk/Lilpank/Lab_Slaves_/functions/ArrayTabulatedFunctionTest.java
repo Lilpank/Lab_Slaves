@@ -1,7 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-import exceptions.InterpolationException;
 import org.testng.annotations.Test;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.exceptions.InterpolationException;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -25,18 +25,14 @@ public class ArrayTabulatedFunctionTest {
 
     private AbstractTabulatedFunction getUnitArray() { return new ArrayTabulatedFunction(sqrFunc, 6, 6, 1); }
 
-    @Test
-    public void testArrayIndexOutOfBoundsException() {
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().getX(-1));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().getX(-10));
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> getDefinedThroughArrays().getX(((int) Double.NEGATIVE_INFINITY)));
-    }
 
     @Test
     public void testIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> getUnitArray().floorIndexOfX(0));
         assertThrows(IllegalArgumentException.class, () -> getUnitArray().extrapolateLeft(1));
         assertThrows(IllegalArgumentException.class, () -> getUnitArray().extrapolateLeft(5));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(new double[]{1},new double[]{1}));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(new double[]{1,3},new double[]{1,2}));
     }
 
     @Test

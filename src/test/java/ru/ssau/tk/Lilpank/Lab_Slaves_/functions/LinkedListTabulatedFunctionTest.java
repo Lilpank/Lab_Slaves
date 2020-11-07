@@ -1,6 +1,6 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-import exceptions.InterpolationException;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.exceptions.InterpolationException;
 import org.testng.annotations.Test;
 
 import java.util.Iterator;
@@ -27,6 +27,9 @@ public class LinkedListTabulatedFunctionTest {
         assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-1));
         assertThrows(IllegalArgumentException.class, () -> getListOfArray().getX(-6));
         assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{1, 2}));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrTestFunction, 10, 2, 10));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrTestFunction, 300, 200, -5));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(sqrTestFunction, 2452, 5, 100000));
     }
 
     @Test

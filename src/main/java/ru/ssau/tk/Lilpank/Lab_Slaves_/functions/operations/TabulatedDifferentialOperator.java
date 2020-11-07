@@ -1,11 +1,11 @@
-package operations;
+package ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations;
 
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.Point;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.TabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.factory.TabulatedFunctionFactory;
 
-import static operations.TabulatedFunctionOperationService.asPoints;
+import static ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations.TabulatedFunctionOperationService.asPoints;
 
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
     TabulatedFunctionFactory factory;

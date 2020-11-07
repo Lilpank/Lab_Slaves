@@ -1,6 +1,6 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.functions;
 
-import exceptions.InterpolationException;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.exceptions.InterpolationException;
 
 import java.io.Serializable;
 import java.util.Arrays;
