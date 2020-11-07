@@ -8,9 +8,9 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.functions.factory.TabulatedFunctionFactory
 import static ru.ssau.tk.Lilpank.Lab_Slaves_.functions.operations.TabulatedFunctionOperationService.asPoints;
 
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
-    TabulatedFunctionFactory factory;
+    public TabulatedFunctionFactory factory;
 
-    TabulatedDifferentialOperator() {
+    public TabulatedDifferentialOperator() {
         this.factory = new ArrayTabulatedFunctionFactory();
     }
 

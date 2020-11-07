@@ -23,13 +23,13 @@ public class LinkedListTabulatedFunctionSerialization {
             FunctionsIO.serialize(out, listFunction1);
             FunctionsIO.serialize(out, listFunction2);
 
-            TabulatedFunction resultArray = FunctionsIO.deserialize(in);
-            TabulatedFunction resultArray1 = FunctionsIO.deserialize(in);
-            TabulatedFunction resultArray2 = FunctionsIO.deserialize(in);
+            TabulatedFunction resultList = FunctionsIO.deserialize(in);
+            TabulatedFunction resultList1 = FunctionsIO.deserialize(in);
+            TabulatedFunction resultList2 = FunctionsIO.deserialize(in);
 
-            System.out.println(resultArray.toString());
-            System.out.println(resultArray1.toString());
-            System.out.println(resultArray2.toString());
+            System.out.println(resultList.toString());
+            System.out.println(resultList1.toString());
+            System.out.println(resultList2.toString());
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }

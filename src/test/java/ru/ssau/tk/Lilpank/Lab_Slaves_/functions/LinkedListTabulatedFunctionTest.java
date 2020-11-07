@@ -50,7 +50,7 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testIteratorFor_each() {
+    public void testIteratorForEach() {
         AbstractTabulatedFunction tempArrayList = getListOfArray();
         int i = 0;
         for (Point point : tempArrayList) {

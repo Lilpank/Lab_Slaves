@@ -64,7 +64,7 @@ public class ArrayTabulatedFunctionTest {
     }
 
     @Test
-    public void testIteratorFor_each() {
+    public void testIteratorForEach() {
         AbstractTabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
         int i = 0;
         for (Point point : testDefinedThroughArrays) {
