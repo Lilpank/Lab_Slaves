@@ -4,15 +4,15 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.TabulatedFunction;
 
 public class ReadWriteTask implements Runnable {
     private final TabulatedFunction tabulatedFunction;
-    public double x;
-    public double y;
 
-    ReadWriteTask(TabulatedFunction tabulatedFunction) {
+    public ReadWriteTask(TabulatedFunction tabulatedFunction) {
         this.tabulatedFunction = tabulatedFunction;
     }
 
     @Override
     public void run() {
+        double x;
+        double y;
         for (int i = 0; i < tabulatedFunction.getCount(); i++) {
             x = tabulatedFunction.getX(i);
             synchronized (tabulatedFunction) {
