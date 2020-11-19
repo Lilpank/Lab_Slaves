@@ -17,6 +17,16 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction  {
         this.object = Objects.requireNonNull(object, "object must not be null");
     }
 
+    public interface Operation<T>{
+      T apply(SynchronizedTabulatedFunction synchronizedTabulatedFunction);
+    }
+
+    public <T> T doSynchronously(Operation<? extends T> operation) {
+        synchronized (object) {
+            return operation.apply(this);
+        }
+    }
+
     @Override
     public int getCount() {
         synchronized (object) {
@@ -40,13 +50,13 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction  {
     @Override
     public Iterator<Point> iterator() {
         synchronized (object) {
-            Point[] dots = TabulatedFunctionOperationService.asPoints(tabulatedFunction);
+            Point[] Dots = TabulatedFunctionOperationService.asPoints(tabulatedFunction);
             return new Iterator<>() {
                 int i = 0;
 
                 @Override
                 public boolean hasNext() {
-                    return i < dots.length;
+                    return i < Dots.length;
                 }
 
                 @Override
@@ -54,7 +64,7 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction  {
                     if (!hasNext()) {
                         throw new NoSuchElementException();
                     }
-                    return dots[i++];
+                    return Dots[i++];
                 }
             };
         }

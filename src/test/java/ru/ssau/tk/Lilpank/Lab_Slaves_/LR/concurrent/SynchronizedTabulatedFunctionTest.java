@@ -163,4 +163,11 @@ public class SynchronizedTabulatedFunctionTest {
         assertEquals(synchronizedArr.apply(8), 80, DELTA);
         assertEquals(synchronizedArr.apply(-4), -40, DELTA);
     }
+
+    @Test
+    public void testDoSynchronously() {
+        SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedList();
+        assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 7);
+        assertEquals((double) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::rightBound), 7);
+    }
 }
