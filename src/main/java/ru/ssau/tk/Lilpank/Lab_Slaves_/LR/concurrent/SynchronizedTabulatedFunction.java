@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class SynchronizedTabulatedFunction implements TabulatedFunction  {
+public class SynchronizedTabulatedFunction implements TabulatedFunction {
     private final TabulatedFunction tabulatedFunction;
     private final Object object;
 
@@ -17,7 +17,7 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction  {
         this.object = Objects.requireNonNull(object, "object must not be null");
     }
 
-    public interface Operation<T>{
+    public interface Operation<T> {
       T apply(SynchronizedTabulatedFunction synchronizedTabulatedFunction);
     }
 
@@ -47,6 +47,7 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction  {
             return tabulatedFunction.getY(index);
         }
     }
+
     @Override
     public Iterator<Point> iterator() {
         synchronized (object) {
@@ -107,7 +108,7 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction  {
 
     @Override
     public double apply(double x) {
-        synchronized (object){
+        synchronized (object) {
             return tabulatedFunction.apply(x);
         }
     }
