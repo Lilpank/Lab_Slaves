@@ -51,13 +51,13 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
     @Override
     public Iterator<Point> iterator() {
         synchronized (object) {
-            Point[] Dots = TabulatedFunctionOperationService.asPoints(tabulatedFunction);
+            Point[] dots = TabulatedFunctionOperationService.asPoints(tabulatedFunction);
             return new Iterator<>() {
                 int i = 0;
 
                 @Override
                 public boolean hasNext() {
-                    return i < Dots.length;
+                    return i < dots.length;
                 }
 
                 @Override
@@ -65,7 +65,7 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
                     if (!hasNext()) {
                         throw new NoSuchElementException();
                     }
-                    return Dots[i++];
+                    return dots[i++];
                 }
             };
         }

@@ -27,11 +27,11 @@ public class TabulatedFunctionOperationService {
 
     public static Point[] asPoints(TabulatedFunction tabulatedFunction) {
         int i = 0;
-        Point[] Dots = new Point[tabulatedFunction.getCount()];
+        Point[] dots = new Point[tabulatedFunction.getCount()];
         for (Point newPoint : tabulatedFunction) {
-            Dots[i++] = newPoint;
+            dots[i++] = newPoint;
         }
-        return Dots;
+        return dots;
     }
 
     private interface BiOperation {
