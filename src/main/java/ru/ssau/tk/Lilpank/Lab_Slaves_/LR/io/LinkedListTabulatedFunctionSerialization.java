@@ -6,6 +6,7 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.LinkedListTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.TabulatedFunction;
 
 import java.io.*;
+
 public class LinkedListTabulatedFunctionSerialization {
     public static void main(String[] args) {
         File outList = new File("output/serialized linked list functions.bin");
