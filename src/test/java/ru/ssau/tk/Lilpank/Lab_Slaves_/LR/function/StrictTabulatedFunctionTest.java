@@ -50,39 +50,45 @@ public class StrictTabulatedFunctionTest {
     @Test
     public void testSetY() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(arrayTabulatedFunction);
-        tempStrict.setY(1,15);
-        assertEquals(tempStrict.getY(1),15);
+        tempStrict.setY(1, 15);
+        assertEquals(tempStrict.getY(1), 15);
     }
 
     @Test
     public void testIndexOfX() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(linkedListTabulatedFunction);
-        assertEquals(tempStrict.indexOfX(1),0);
+        assertEquals(tempStrict.indexOfX(1), 0);
     }
 
     @Test
     public void testIndexOfY() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(arrayTabulatedFunction);
-        assertEquals(tempStrict.indexOfY(1),0);
+        assertEquals(tempStrict.indexOfY(1), 0);
     }
 
     @Test
     public void testLeftBound() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(linkedListTabulatedFunction);
-        assertEquals(tempStrict.leftBound(),1);
+        assertEquals(tempStrict.leftBound(), 1);
     }
 
     @Test
     public void testRightBound() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(arrayTabulatedFunction);
-        assertEquals(tempStrict.rightBound(),3);
+        assertEquals(tempStrict.rightBound(), 3);
     }
 
     @Test
     public void testApply() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(linkedListTabulatedFunction);
-        assertEquals(tempStrict.apply(1),1);
+        assertEquals(tempStrict.apply(1), 1);
         assertThrows(UnsupportedOperationException.class, () -> tempStrict.apply(5));
         assertThrows(UnsupportedOperationException.class, () -> tempStrict.apply(-1));
+    }
+
+    @Test
+    public void UnmodifiableTabulatedFunctionToWrapStrictTabulatedFunction() {
+        StrictTabulatedFunction tempUnm = new StrictTabulatedFunction(new UnmodifiableTabulatedFunction(arrayTabulatedFunction));
+        assertThrows(UnsupportedOperationException.class, () -> tempUnm.apply(6));
     }
 }

@@ -54,38 +54,46 @@ public class UnmodifiableTabulatedFunctionTest {
 
     @Test
     public void testSetY() {
-        UnmodifiableTabulatedFunction tempStrict = new UnmodifiableTabulatedFunction(arrayTabulatedFunction);
-        assertThrows(UnsupportedOperationException.class, () -> tempStrict.setY(1, 1));
+        UnmodifiableTabulatedFunction unmodifiableTabulatedFunction = new UnmodifiableTabulatedFunction(arrayTabulatedFunction);
+        assertThrows(UnsupportedOperationException.class, () -> unmodifiableTabulatedFunction.setY(1, 1));
     }
 
     @Test
     public void testIndexOfX() {
-        UnmodifiableTabulatedFunction tempStrict = new UnmodifiableTabulatedFunction(linkedListTabulatedFunction);
-        assertEquals(tempStrict.indexOfX(1), 0);
+        UnmodifiableTabulatedFunction unmodifiableTabulatedFunction = new UnmodifiableTabulatedFunction(linkedListTabulatedFunction);
+        assertEquals(unmodifiableTabulatedFunction.indexOfX(1), 0);
     }
 
     @Test
     public void testIndexOfY() {
-        UnmodifiableTabulatedFunction tempStrict = new UnmodifiableTabulatedFunction(arrayTabulatedFunction);
-        assertEquals(tempStrict.indexOfY(1), 0);
+        UnmodifiableTabulatedFunction unmodifiableTabulatedFunction = new UnmodifiableTabulatedFunction(arrayTabulatedFunction);
+        assertEquals(unmodifiableTabulatedFunction.indexOfY(1), 0);
     }
 
     @Test
     public void testLeftBound() {
-        UnmodifiableTabulatedFunction tempStrict = new UnmodifiableTabulatedFunction(linkedListTabulatedFunction);
-        assertEquals(tempStrict.leftBound(), 1);
+        UnmodifiableTabulatedFunction unmodifiableTabulatedFunction = new UnmodifiableTabulatedFunction(linkedListTabulatedFunction);
+        assertEquals(unmodifiableTabulatedFunction.leftBound(), 1);
     }
 
     @Test
     public void testRightBound() {
-        UnmodifiableTabulatedFunction tempStrict = new UnmodifiableTabulatedFunction(arrayTabulatedFunction);
-        assertEquals(tempStrict.rightBound(), 3);
+        UnmodifiableTabulatedFunction unmodifiableTabulatedFunction = new UnmodifiableTabulatedFunction(arrayTabulatedFunction);
+        assertEquals(unmodifiableTabulatedFunction.rightBound(), 3);
     }
 
     @Test
     public void testApply() {
-        UnmodifiableTabulatedFunction tempStrict = new UnmodifiableTabulatedFunction(linkedListTabulatedFunction);
-        assertEquals(tempStrict.apply(1), 1);
-        assertEquals(tempStrict.apply(2), 2);
+        UnmodifiableTabulatedFunction unmodifiableTabulatedFunction = new UnmodifiableTabulatedFunction(linkedListTabulatedFunction);
+        assertEquals(unmodifiableTabulatedFunction.apply(1), 1);
+        assertEquals(unmodifiableTabulatedFunction.apply(2), 2);
+    }
+
+    @Test
+    public void UnmodifiableTabulatedFunctionToWrapStrictTabulatedFunction() {
+        UnmodifiableTabulatedFunction unmodifiableTabulatedFunction = new UnmodifiableTabulatedFunction(new StrictTabulatedFunction(linkedListTabulatedFunction));
+
+        assertThrows(UnsupportedOperationException.class, () -> unmodifiableTabulatedFunction.setY(1, 1));
+        assertThrows(UnsupportedOperationException.class, () -> unmodifiableTabulatedFunction.setY(2, 1));
     }
 }
