@@ -3,10 +3,10 @@ package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class StrictTabulatedFunction implements TabulatedFunction {
+public class UnmodifiableTabulatedFunction implements TabulatedFunction {
     private final TabulatedFunction function;
 
-    public <T> StrictTabulatedFunction(T function) {
+    public <T> UnmodifiableTabulatedFunction(T function) {
         this.function = (TabulatedFunction) function;
     }
 
@@ -32,7 +32,7 @@ public class StrictTabulatedFunction implements TabulatedFunction {
 
     @Override
     public void setY(int index, double value) {
-        function.setY(index, value);
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -57,10 +57,6 @@ public class StrictTabulatedFunction implements TabulatedFunction {
 
     @Override
     public double apply(double x) {
-        if (function.indexOfX(x) == -1) {
-            throw new UnsupportedOperationException();
-        } else {
-            return function.getY(indexOfX(x));
-        }
+        return function.getY(indexOfX(x));
     }
 }

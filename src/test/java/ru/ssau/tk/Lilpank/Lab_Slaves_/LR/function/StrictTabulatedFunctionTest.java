@@ -1,6 +1,5 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -58,13 +57,13 @@ public class StrictTabulatedFunctionTest {
     @Test
     public void testIndexOfX() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(linkedListTabulatedFunction);
-        assertEquals(tempStrict.indexOfX(1),1);
+        assertEquals(tempStrict.indexOfX(1),0);
     }
 
     @Test
     public void testIndexOfY() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(arrayTabulatedFunction);
-        assertEquals(tempStrict.indexOfY(1),1);
+        assertEquals(tempStrict.indexOfY(1),0);
     }
 
     @Test
@@ -82,6 +81,7 @@ public class StrictTabulatedFunctionTest {
     @Test
     public void testApply() {
         StrictTabulatedFunction tempStrict = new StrictTabulatedFunction(linkedListTabulatedFunction);
+        assertEquals(tempStrict.apply(1),1);
         assertThrows(UnsupportedOperationException.class, () -> tempStrict.apply(5));
         assertThrows(UnsupportedOperationException.class, () -> tempStrict.apply(-1));
     }
