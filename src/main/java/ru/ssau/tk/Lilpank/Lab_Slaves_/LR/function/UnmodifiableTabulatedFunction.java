@@ -1,7 +1,6 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 public class UnmodifiableTabulatedFunction implements TabulatedFunction {
     private final TabulatedFunction function;
