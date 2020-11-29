@@ -4,9 +4,11 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.TabulatedFunction;
 
 public class AddingTask implements Runnable {
     private final TabulatedFunction tabulatedFunction;
+    private final Runnable postRunAction;
 
-    public AddingTask(TabulatedFunction tabulatedFunction) {
+    public AddingTask(TabulatedFunction tabulatedFunction, Runnable postRunAction) {
         this.tabulatedFunction = tabulatedFunction;
+        this.postRunAction = postRunAction;
     }
 
     @Override
@@ -24,6 +26,9 @@ public class AddingTask implements Runnable {
             }
             System.out.printf("%s, i = %d, x = %f, new y = %f", Thread.currentThread().getName(), i, x, y);
             System.out.println();
+        }
+        if (postRunAction != null) {
+            postRunAction.run();
         }
     }
 }
