@@ -1,5 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.io;
 
+import com.thoughtworks.xstream.XStream;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.ArrayTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.Point;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.TabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.factory.TabulatedFunctionFactory;
@@ -70,5 +72,15 @@ final public class FunctionsIO {
 
     public static TabulatedFunction deserialize(BufferedInputStream stream) throws IOException, ClassNotFoundException {
         return (TabulatedFunction) new ObjectInputStream(stream).readObject();
+    }
+
+    public static void serializeXml(BufferedWriter writer, ArrayTabulatedFunction function) throws IOException {
+        XStream objectXml = new XStream();
+        writer.write(objectXml.toXML(function));
+    }
+
+    public static ArrayTabulatedFunction deserializeXml(BufferedReader reader){
+        XStream xStream = new XStream();
+        return (ArrayTabulatedFunction) xStream.fromXML(reader);
     }
 }

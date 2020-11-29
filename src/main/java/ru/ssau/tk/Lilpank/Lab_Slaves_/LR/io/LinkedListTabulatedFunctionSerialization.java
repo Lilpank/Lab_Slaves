@@ -34,6 +34,5 @@ public class LinkedListTabulatedFunctionSerialization {
         } catch (IOException | ClassNotFoundException err) {
             err.printStackTrace();
         }
-
     }
 }
