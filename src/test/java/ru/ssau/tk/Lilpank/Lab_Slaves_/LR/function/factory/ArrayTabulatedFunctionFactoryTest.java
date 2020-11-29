@@ -10,9 +10,9 @@ public class ArrayTabulatedFunctionFactoryTest {
 
     @Test
     public void testCreate() {
-        ArrayTabulatedFunctionFactory temp = new ArrayTabulatedFunctionFactory();
-        assertTrue(temp.create(new double[]{1, 2, 3}, new double[]{1, 2, 3}) instanceof ArrayTabulatedFunction);
-        assertFalse(temp.create(new double[]{1, 2, 3}, new double[]{1, 2, 3}) instanceof ArrayTabulatedFunctionFactory);
+        ArrayTabulatedFunctionFactory tempFactory = new ArrayTabulatedFunctionFactory();
+        assertTrue(tempFactory.create(new double[]{1, 2, 3}, new double[]{1, 2, 3}) instanceof ArrayTabulatedFunction);
+        assertFalse(tempFactory.create(new double[]{1, 2, 3}, new double[]{1, 2, 3}) instanceof ArrayTabulatedFunctionFactory);
     }
     @Test
     public void testTabulatedFunctionFactoryCrateStrict() {
@@ -28,5 +28,12 @@ public class ArrayTabulatedFunctionFactoryTest {
         assertEquals(tempFactory.createUnmodifiable(new double[]{1, 2, 3}, new double[]{10, 2, 3}).getCount(), 3);
         assertTrue(tempFactory.createUnmodifiable(new double[]{1, 2, 3}, new double[]{10, 2, 3}) instanceof UnmodifiableTabulatedFunction);
         assertThrows(UnsupportedOperationException.class, () -> tempFactory.createUnmodifiable(new double[]{1, 2, 3}, new double[]{10, 2, 3}).setY(1, 5));
+    }
+    @Test
+    public void testCreateStrictUnmodifiable(){
+     ArrayTabulatedFunctionFactory tempFactory = new ArrayTabulatedFunctionFactory();
+     TabulatedFunction tabulatedFunction = tempFactory.createStrictUnmodifiable(new double[]{1, 2, 3}, new double[]{10, 2, 3});
+     assertThrows(UnsupportedOperationException.class,()-> tabulatedFunction.apply(5));
+     assertThrows(UnsupportedOperationException.class,()-> tabulatedFunction.setY(1,2));
     }
 }
