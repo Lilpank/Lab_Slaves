@@ -1,5 +1,7 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.io;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.ArrayTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.Point;
@@ -79,8 +81,18 @@ final public class FunctionsIO {
         writer.write(objectXml.toXML(function));
     }
 
-    public static ArrayTabulatedFunction deserializeXml(BufferedReader reader){
+    public static ArrayTabulatedFunction deserializeXml(BufferedReader reader) {
         XStream xStream = new XStream();
         return (ArrayTabulatedFunction) xStream.fromXML(reader);
+    }
+
+    public static void serializeJson(BufferedWriter writer, ArrayTabulatedFunction function) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        writer.write(objectMapper.writeValueAsString(function));
+    }
+
+    public static ArrayTabulatedFunction deserializeJson(BufferedReader reader) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return (ArrayTabulatedFunction) objectMapper.readerFor(ArrayTabulatedFunction.class).readValue(reader);
     }
 }

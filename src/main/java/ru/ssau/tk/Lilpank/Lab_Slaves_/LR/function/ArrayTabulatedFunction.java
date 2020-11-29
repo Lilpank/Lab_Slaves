@@ -1,5 +1,8 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.exceptions.InterpolationException;
 
 import java.io.Serializable;
@@ -9,11 +12,17 @@ import java.util.NoSuchElementException;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
     private static final long serialVersionUID = 1545272046013992252L;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     private final double[] xValues;
+    @JsonFormat(shape = JsonFormat.Shape.ARRAY)
     private final double[] yValues;
     private int count = 0;
 
-    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+    @JsonCreator
+    public ArrayTabulatedFunction(
+            @JsonProperty(value = "xValues") double[] xValues,
+            @JsonProperty(value = "yValues")double[] yValues
+    ) {
         checkLengthIsTheSame(xValues, yValues);
         checkSorted(xValues);
 
