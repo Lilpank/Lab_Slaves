@@ -5,8 +5,8 @@ import java.util.Iterator;
 public class UnmodifiableTabulatedFunction implements TabulatedFunction {
     private final TabulatedFunction function;
 
-    public <T> UnmodifiableTabulatedFunction(T function) {
-        this.function = (TabulatedFunction) function;
+    public UnmodifiableTabulatedFunction(TabulatedFunction function) {
+        this.function = function;
     }
 
     @Override

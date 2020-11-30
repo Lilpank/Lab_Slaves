@@ -8,7 +8,7 @@ import static ru.ssau.tk.Lilpank.Lab_Slaves_.LR.io.FunctionsIO.deserializeJson;
 
 public class JsonMain {
     public static void main(String[] args) {
-        File filePath = new File("temp/serialized arrayTabulatedFunction.Json");
+        File filePath = new File("serialized arrayTabulatedFunction.Json");
         double[] xValue = {-3, -2, -1, 0, 1, 2, 3};
         double[] yValue = {-9, -4, -1, 0, 1, 4, 9};
 

@@ -8,9 +8,11 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.factory.LinkedListTabulatedFun
 
 import java.io.*;
 
+import static org.testng.Assert.assertEquals;
+
 public class FunctionsIOTest {
     private final File filePath = new File("temp/array function.txt");
-    TabulatedFunction listFunction = new LinkedListTabulatedFunction(new double[]{1.2, 2.3, 3.6}, new double[]{4, 5, 6});
+    public final TabulatedFunction listFun = new LinkedListTabulatedFunction(new double[]{1.2, 2.3, 3.6}, new double[]{4, 5, 6});
 
     @AfterClass
     public void clearDir() {
@@ -19,16 +21,23 @@ public class FunctionsIOTest {
 
     @Test
     public void testFunctionsIO() {
-        try (BufferedWriter outArray = new BufferedWriter(new FileWriter(filePath))) {
-            FunctionsIO.writeTabulatedFunction(outArray, listFunction);
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath))) {
+            FunctionsIO.writeTabulatedFunction(out, listFun);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        try(BufferedReader inList = new BufferedReader(new FileReader(filePath))){
-            TabulatedFunction listFunction = FunctionsIO.readTabulatedFunction(inList, new LinkedListTabulatedFunctionFactory());
-            System.out.println(listFunction.toString());
-        }catch(IOException e){
+        try (BufferedReader inList = new BufferedReader(new FileReader(filePath))) {
+            TabulatedFunction tempListFunction = FunctionsIO.readTabulatedFunction(inList, new LinkedListTabulatedFunctionFactory());
+
+            assertEquals(tempListFunction.getCount(), listFun.getCount());
+            for (int i = 0; i < tempListFunction.getCount(); i++) {
+                assertEquals(tempListFunction.getX(i), listFun.getX(i));
+                assertEquals(tempListFunction.getY(i), listFun.getY(i));
+            }
+
+            System.out.println(tempListFunction.toString());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

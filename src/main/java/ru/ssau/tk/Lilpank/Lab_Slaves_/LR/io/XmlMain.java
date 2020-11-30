@@ -8,7 +8,7 @@ import static ru.ssau.tk.Lilpank.Lab_Slaves_.LR.io.FunctionsIO.deserializeXml;
 
 public class XmlMain {
     public static void main(String[] args) {
-        File filePath = new File("temp/serialized arrayTabulatedFunction.xml");
+        File filePath = new File("serialized arrayTabulatedFunction.xml");
         double[] x = {-3, -2, -1, 0, 1, 2, 3};
         double[] y = {-9, -4, -1, 0, 1, 4, 9};
 
