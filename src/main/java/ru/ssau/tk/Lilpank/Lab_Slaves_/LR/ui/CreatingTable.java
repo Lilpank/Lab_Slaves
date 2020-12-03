@@ -165,8 +165,4 @@ public class CreatingTable extends JFrame {
         }
         return new LinkedListTabulatedFunctionFactory().create(xValues,yValues);
     }
-
-    public static void main(String[] args) {
-        new CreatingTable();
-    }
 }
