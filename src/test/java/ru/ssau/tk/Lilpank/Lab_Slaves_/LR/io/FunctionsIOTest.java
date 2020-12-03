@@ -12,7 +12,7 @@ import static org.testng.Assert.assertEquals;
 
 public class FunctionsIOTest {
     private final File filePath = new File("temp/array function.txt");
-    public final TabulatedFunction listFun = new LinkedListTabulatedFunction(new double[]{1.2, 2.3, 3.6}, new double[]{4, 5, 6});
+    private final TabulatedFunction listFun = new LinkedListTabulatedFunction(new double[]{1.2, 2.3, 3.6}, new double[]{4, 5, 6});
 
     @AfterClass
     public void clearDir() {

@@ -20,5 +20,4 @@ public interface TabulatedFunctionFactory {
     default TabulatedFunction createStrictUnmodifiable(double[] xValues, double[] yValues) {
         return new StrictTabulatedFunction(createUnmodifiable(xValues, yValues));
     }
-
 }
