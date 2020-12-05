@@ -26,9 +26,10 @@ public class ReadWriteTask implements Runnable {
             }
             System.out.printf("%s, after write: i = %d, x = %f, y = %f", Thread.currentThread().getName(), i, x, y);
             System.out.println();
-            if (postRunAction != null) {
-                postRunAction.run();
-            }
+
+        }
+        if (postRunAction != null) {
+            postRunAction.run();
         }
     }
 }

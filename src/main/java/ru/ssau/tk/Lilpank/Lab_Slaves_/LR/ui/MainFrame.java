@@ -5,6 +5,6 @@ public class MainFrame {
     public static final int WIDTH = HEIGHT / 12 * 9;
 
     public static void main(String[] args) {
-        new CreatingTable();
+            new CreatingTableTabulatedFunctionOfArrayXY();
     }
 }

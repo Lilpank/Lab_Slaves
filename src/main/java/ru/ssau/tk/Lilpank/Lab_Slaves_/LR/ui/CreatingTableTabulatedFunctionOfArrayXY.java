@@ -6,75 +6,10 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.factory.LinkedListTabulatedFun
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
-// класс рисующий шаблон таблицы
-class AbstractTableXY extends AbstractTableModel {
-    private static final int INDEX_COLUMN_NUMBER = 0;
-    private static final int VALUE_COLUMN_NUMBER = 1;
-    private static final long serialVersionUID = -2084927806333118951L;
-    private final List<String> strings;
-
-    public AbstractTableXY(List<String> strings) {
-        this.strings = strings;
-    }
-
-
-    @Override
-    public int getRowCount() {
-        return strings.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return 2;
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case INDEX_COLUMN_NUMBER:
-                return rowIndex;
-            case VALUE_COLUMN_NUMBER:
-                return strings.get(rowIndex);
-        }
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        strings.set(rowIndex, String.valueOf(aValue));
-    }
-
-    @Override
-    public boolean isCellEditable(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case INDEX_COLUMN_NUMBER:
-            case VALUE_COLUMN_NUMBER:
-                return true;
-        }
-
-        return false;
-    }
-
-    @Override
-    public String getColumnName(int column) {
-        switch (column) {
-            case INDEX_COLUMN_NUMBER:
-                return "X: ";
-            case VALUE_COLUMN_NUMBER:
-                return "Y: ";
-
-        }
-        return super.getColumnName(column);
-    }
-}
-
-
-public class CreatingTable extends JFrame {
+public class CreatingTableTabulatedFunctionOfArrayXY extends JFrame {
     private final List<String> strings = new ArrayList<>();
     private final AbstractTableModel tableModel = new AbstractTableXY(strings);
     private final JTable tableXY = new JTable(tableModel);
@@ -83,8 +18,8 @@ public class CreatingTable extends JFrame {
     private final JLabel textField = new JLabel("Введите количество точек: ");
     private final JTextField textFieldCount = new JTextField();
 
-    public CreatingTable() {
-        super("TabulatedFunction");
+    public CreatingTableTabulatedFunctionOfArrayXY() {
+        super("TabulatedFunctionOArrayXY");
         //размеры окна, и Layout
         getContentPane().setLayout(new GridLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -99,19 +34,26 @@ public class CreatingTable extends JFrame {
         //окно по середине выйдет
         setLocationRelativeTo(null);
         // парсер ввода числа точек
-        buttonCreateXY.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent args) {
-                addTableLine(Integer.parseInt(textFieldCount.getText()));
+        buttonCreateXY.addActionListener(args -> {
+            try {
+                int temp = -1;
+                temp = Integer.parseInt(textFieldCount.getText());
+                if (temp < 0) {
+                    throw new ExceptionPanel("Введите положительное число!");
+                }
+                addTableLine(temp);
+            } catch (NumberFormatException exception) {
+                new WindowException(new ExceptionPanel(exception));
+            } catch (NullPointerException exception) {
+                new WindowException(new ExceptionPanel(exception));
+            } catch (ExceptionPanel exceptionPanel) {
+                new WindowException(exceptionPanel);
             }
         });
-
-        buttonCreateFunction.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent args) {
-                getTabulatedFunctionFactory();
-                setVisible(false);
-            }
+        //закрывается окно с таблицей
+        buttonCreateFunction.addActionListener(args -> {
+            getTabulatedFunctionFactory();
+            setVisible(false);
         });
         setVisible(true);
     }
@@ -144,14 +86,10 @@ public class CreatingTable extends JFrame {
     }
 
     private void addTableLine(int count) {
-        if (count < 1) {
-            throw new UnsupportedOperationException();
-        } else {
-            strings.clear();
-            for (int i = 0; i < count; i++) {
-                strings.add(String.valueOf(0));
-                tableModel.fireTableDataChanged();
-            }
+        strings.clear();
+        for (int i = 0; i < count; i++) {
+            strings.add(String.valueOf(0));
+            tableModel.fireTableDataChanged();
         }
     }
 
@@ -163,6 +101,6 @@ public class CreatingTable extends JFrame {
             yValues[i] = Double.parseDouble(strings.get(i));
             xValues[i] = Double.parseDouble(tableModel.getValueAt(i, 0).toString());
         }
-        return new LinkedListTabulatedFunctionFactory().create(xValues,yValues);
+        return new LinkedListTabulatedFunctionFactory().create(xValues, yValues);
     }
 }

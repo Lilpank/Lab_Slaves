@@ -26,9 +26,10 @@ public class MultiplyingTask implements Runnable {
             }
             System.out.printf("%s, i = %d, x = %f, new y = %f", Thread.currentThread().getName(), i, x, y);
             System.out.println();
-            if (postRunAction != null) {
-                postRunAction.run();
-            }
+
+        }
+        if (postRunAction != null) {
+            postRunAction.run();
         }
     }
 }
