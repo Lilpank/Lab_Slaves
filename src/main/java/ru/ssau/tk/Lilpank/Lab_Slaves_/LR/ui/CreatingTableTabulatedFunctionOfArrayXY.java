@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-public class CreatingTableTabulatedFunctionOfArrayXY extends JFrame {
+public class CreatingTableTabulatedFunctionOfArrayXY extends JDialog {
     private final List<String> strings = new ArrayList<>();
     private final AbstractTableModel tableModel = new AbstractTableXY(strings);
     private final JTable tableXY = new JTable(tableModel);
@@ -19,10 +19,9 @@ public class CreatingTableTabulatedFunctionOfArrayXY extends JFrame {
     private final JTextField textFieldCount = new JTextField();
 
     public CreatingTableTabulatedFunctionOfArrayXY() {
-        super("TabulatedFunctionOArrayXY");
+        super();
         //размеры окна, и Layout
         getContentPane().setLayout(new GridLayout());
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(MainFrame.WIDTH, MainFrame.HEIGHT));
         setMaximumSize(new Dimension(MainFrame.WIDTH, MainFrame.HEIGHT));
         setMinimumSize(new Dimension(MainFrame.WIDTH, MainFrame.HEIGHT));
