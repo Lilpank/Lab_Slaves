@@ -19,8 +19,8 @@ public class TabulatedFunctionOperationServiceTest {
     private final TabulatedFunctionOperationService operationServiceArray = new TabulatedFunctionOperationService();
     private final TabulatedFunctionOperationService operationServiceList = new TabulatedFunctionOperationService(new LinkedListTabulatedFunctionFactory());
 
-    private TabulatedFunction testArrayFunction = new ArrayTabulatedFunction(xValues, yValuesArray);
-    private TabulatedFunction testListFunction = new LinkedListTabulatedFunction(xValues, yValuesList);
+    private final TabulatedFunction testArrayFunction = new ArrayTabulatedFunction(xValues, yValuesArray);
+    private final TabulatedFunction testListFunction = new LinkedListTabulatedFunction(xValues, yValuesList);
 
     @Test
     public void testAsPoints() {

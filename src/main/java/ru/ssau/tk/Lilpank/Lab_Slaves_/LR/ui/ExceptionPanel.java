@@ -17,4 +17,7 @@ public class ExceptionPanel extends Exception {
     public ExceptionPanel(NullPointerException message) {
         super("Введите число!");
     }
+    public ExceptionPanel(IllegalArgumentException message){
+        super("Введите число!");
+    }
 }

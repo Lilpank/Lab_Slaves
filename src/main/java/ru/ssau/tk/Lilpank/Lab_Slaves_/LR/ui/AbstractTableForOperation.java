@@ -1,19 +1,27 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.ui;
 
-
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
-// класс рисующий шаблон таблицы
-public class AbstractTableXY extends AbstractTableModel {
+public class AbstractTableForOperation extends AbstractTableModel {
     private static final int INDEX_COLUMN_NUMBER = 0;
     private static final int VALUE_COLUMN_NUMBER = 1;
-    private static final long serialVersionUID = -2084927806333118951L;
-    private final List<String> strings;
+    private static final long serialVersionUID = 8996072532697735991L;
+    private List<String> strings = new ArrayList<>();
 
-    public AbstractTableXY(List<String> strings) {
-        this.strings = strings;
+    public List<String> getTableData() {
+        return strings;
     }
+
+    public void addTableData(String data) {
+        strings.add(data);
+    }
+
+    public void clear() {
+        strings.clear();
+    }
+
 
     @Override
     public int getRowCount() {
@@ -42,6 +50,17 @@ public class AbstractTableXY extends AbstractTableModel {
     }
 
     @Override
+    public String getColumnName(int column) {
+        switch (column) {
+            case INDEX_COLUMN_NUMBER:
+                return "X: ";
+            case VALUE_COLUMN_NUMBER:
+                return "Y: ";
+        }
+        return super.getColumnName(column);
+    }
+
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case INDEX_COLUMN_NUMBER:
@@ -51,17 +70,4 @@ public class AbstractTableXY extends AbstractTableModel {
         }
         return false;
     }
-
-    @Override
-    public String getColumnName(int column) {
-        switch (column) {
-            case INDEX_COLUMN_NUMBER:
-                return "X: ";
-            case VALUE_COLUMN_NUMBER:
-                return "Y: ";
-
-        }
-        return super.getColumnName(column);
-    }
 }
-
