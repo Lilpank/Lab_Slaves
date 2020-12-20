@@ -1,15 +1,23 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.ui;
 
+import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.exceptions.InconsistentFunctionsException;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.ArrayTabulatedFunction;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.LinkedListTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.TabulatedFunction;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.io.FunctionsIO;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class WindowTabulatedFunctionOperationService extends JDialog {
     private final TabulatedFunctionOperationService tabulatedFunctionOperationService = new TabulatedFunctionOperationService();
     private CreatingTableTabulatedFunctionOfArray creatingTableTabulatedFunctionOfArray;
-    private TabulatedFunction temp;
     private static TabulatedFunction tabulatedFunction1;
     private static TabulatedFunction tabulatedFunction2;
     private static TabulatedFunction tabulatedFunction3;
@@ -36,15 +44,14 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
     private final JButton jButtonCreateOfArray1 = new JButton("Создать из массива");
     private final JButton jButtonCreateOfFunction1 = new JButton("Создать из функции");
 
-    private final JButton jButtonDownland2 = new JButton("Загрузить");
     private final JButton jButtonSave2 = new JButton("Сохранить");
-    private final JButton jButtonCreateOfArray2 = new JButton("Создать из массива");
-    private final JButton jButtonCreateOfFunction2 = new JButton("Создать из функции");
 
     private final JButton jButtonRavno = new JButton(" = ");
+    private final JFileChooser jFileChooser = new JFileChooser();
 
     public WindowTabulatedFunctionOperationService() {
         super();
+        jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Text files", "txt"));
         //Размеры окна.
         setMaximumSize(new Dimension(MainFrame.WIDTH * 4, MainFrame.HEIGHT));
         setMinimumSize(new Dimension(MainFrame.WIDTH * 4, MainFrame.HEIGHT));
@@ -53,10 +60,106 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
         tableXY1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableXY2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableXY3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
+        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         getContentPane().setLayout(new GridLayout());
         compose();
+        //кнопка для сохранения функции
+        jButtonSave.addActionListener(args -> {
+            if (tabulatedFunction1 == null) {
+                new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
+            } else {
+                JTextFileName jTextFileName = new JTextFileName();
+                jTextFileName.setModalityType(ModalityType.APPLICATION_MODAL);
+                jTextFileName.setVisible(true);
 
+                if (!jTextFileName.getFileName().isEmpty()) {
+                    System.out.println(jTextFileName.getFileName());
+                    jFileChooser.showSaveDialog(this);
+                    File file = jFileChooser.getSelectedFile();
+                    if (tabulatedFunction1 instanceof ArrayTabulatedFunction) {
+                        if (file != null) {
+                            try (BufferedWriter outArray = new BufferedWriter(new FileWriter(file + "\\" + jTextFileName.getFileName() + ".txt"))) {
+                                FunctionsIO.writeTabulatedFunction(outArray, tabulatedFunction1);
+                            } catch (IOException err) {
+                                System.out.println();
+                            }
+                        }
+                    } else if (tabulatedFunction1 instanceof LinkedListTabulatedFunction) {
+                        if (file != null) {
+                            try (BufferedWriter outList = new BufferedWriter(new FileWriter(file + "\\" + jTextFileName.getFileName() + ".txt"))) {
+                                FunctionsIO.writeTabulatedFunction(outList, tabulatedFunction1);
+                            } catch (IOException err) {
+                                System.out.println();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        //кнопка для сохранения функции
+        jButtonSave1.addActionListener(args -> {
+            if (tabulatedFunction2 == null) {
+                new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
+            } else {
+                JTextFileName jTextFileName = new JTextFileName();
+                jTextFileName.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+                jTextFileName.setVisible(true);
+                if (!jTextFileName.getFileName().isEmpty()) {
+                    jFileChooser.showSaveDialog(this);
+                    File file = jFileChooser.getSelectedFile();
+                    if (tabulatedFunction2 instanceof ArrayTabulatedFunction) {
+                        if (file != null) {
+                            try (BufferedWriter outArray = new BufferedWriter(new FileWriter(file + "\\" + jTextFileName.getFileName() + ".txt"))) {
+                                FunctionsIO.writeTabulatedFunction(outArray, tabulatedFunction2);
+                            } catch (IOException err) {
+                                System.out.println();
+                            }
+                        }
+
+                    } else if (tabulatedFunction2 instanceof LinkedListTabulatedFunction) {
+                        if (file != null) {
+                            try (BufferedWriter outList = new BufferedWriter(new FileWriter(file + "\\" + jTextFileName.getFileName() + ".txt"))) {
+                                FunctionsIO.writeTabulatedFunction(outList, tabulatedFunction2);
+                            } catch (IOException err) {
+                                System.out.println();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        //кнопка для сохранения функции
+        jButtonSave2.addActionListener(args -> {
+            if (tabulatedFunction3 == null) {
+                new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
+            } else {
+                JTextFileName jTextFileName = new JTextFileName();
+                jTextFileName.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+                jTextFileName.setVisible(true);
+                if (!jTextFileName.getFileName().isEmpty()) {
+                    jFileChooser.showSaveDialog(this);
+                    File file = jFileChooser.getSelectedFile();
+                    if (tabulatedFunction3 instanceof ArrayTabulatedFunction) {
+                        if (file != null) {
+                            try (BufferedWriter outArray = new BufferedWriter(new FileWriter(file + "\\" + jTextFileName.getFileName() + ".txt"))) {
+                                FunctionsIO.writeTabulatedFunction(outArray, tabulatedFunction3);
+                            } catch (IOException err) {
+                                System.out.println();
+                            }
+                        }
+                    } else if (tabulatedFunction3 instanceof LinkedListTabulatedFunction) {
+                        if (file != null) {
+                            try (BufferedWriter outList = new BufferedWriter(new FileWriter(file + "\\" + jTextFileName.getFileName() + ".txt"))) {
+                                FunctionsIO.writeTabulatedFunction(outList, tabulatedFunction3);
+                            } catch (IOException err) {
+                                System.out.println();
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        //изменение значений в таблице напрямую
         tableXY1.addPropertyChangeListener(evt -> {
             if (evt.getOldValue() != null) {
                 try {
@@ -64,6 +167,8 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
                     tabulatedFunction1.setY(tableXY1.getEditingRow(), Double.parseDouble(value));
                 } catch (NumberFormatException e) {
                     new WindowException(new ExceptionPanel(e));
+                } catch (UnsupportedOperationException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println();
                 }
             }
         });
@@ -75,95 +180,122 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
                     tabulatedFunction2.setY(tableXY2.getEditingRow(), Double.parseDouble(value));
                 } catch (NumberFormatException e) {
                     new WindowException(new ExceptionPanel(e));
+                } catch (UnsupportedOperationException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println();
                 }
             }
         });
 
         jButtonCreateOfArray.addActionListener(args -> {
-                    creatingTableTabulatedFunctionOfArray = new CreatingTableTabulatedFunctionOfArray();
-                    creatingTableTabulatedFunctionOfArray.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-                    creatingTableTabulatedFunctionOfArray.setVisible(true);
-                    tabulatedFunction1 = creatingTableTabulatedFunctionOfArray.getTabulatedFunction();
+                    try {
+                        creatingTableTabulatedFunctionOfArray = new CreatingTableTabulatedFunctionOfArray();
+                        creatingTableTabulatedFunctionOfArray.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+                        creatingTableTabulatedFunctionOfArray.setVisible(true);
+                        tabulatedFunction1 = creatingTableTabulatedFunctionOfArray.getTabulatedFunction();
 
-                    tableModel1.clear();
-                    for (int i = 0; i < tabulatedFunction1.getCount(); i++) {
-                        tableModel1.addTableData(String.valueOf(tabulatedFunction1.getY(i)));
-                        tableModel1.fireTableDataChanged();
+                        tableModel1.clear();
+                        for (int i = 0; i < tabulatedFunction1.getCount(); i++) {
+                            tableModel1.addTableData(String.valueOf(tabulatedFunction1.getY(i)));
+                            tableModel1.fireTableDataChanged();
+                        }
+                    } catch (UnsupportedOperationException | NullPointerException e) {
+                        System.out.println();
                     }
                 }
         );
 
         jButtonCreateOfArray1.addActionListener(args -> {
-                    creatingTableTabulatedFunctionOfArray = new CreatingTableTabulatedFunctionOfArray();
-                    creatingTableTabulatedFunctionOfArray.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-                    creatingTableTabulatedFunctionOfArray.setVisible(true);
-                    tabulatedFunction2 = creatingTableTabulatedFunctionOfArray.getTabulatedFunction();
+                    try {
+                        creatingTableTabulatedFunctionOfArray = new CreatingTableTabulatedFunctionOfArray();
 
-                    tableModel2.clear();
-                    for (int i = 0; i < tabulatedFunction2.getCount(); i++) {
-                        tableModel2.addTableData(String.valueOf(tabulatedFunction2.getY(i)));
-                        tableModel2.fireTableDataChanged();
-                    }
-                }
-        );
+                        creatingTableTabulatedFunctionOfArray.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+                        creatingTableTabulatedFunctionOfArray.setVisible(true);
+                        tabulatedFunction2 = creatingTableTabulatedFunctionOfArray.getTabulatedFunction();
 
-        jButtonCreateOfArray2.addActionListener(args -> {
-                    creatingTableTabulatedFunctionOfArray = new CreatingTableTabulatedFunctionOfArray();
-                    creatingTableTabulatedFunctionOfArray.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-                    creatingTableTabulatedFunctionOfArray.setVisible(true);
-                    tabulatedFunction3 = creatingTableTabulatedFunctionOfArray.getTabulatedFunction();
-
-                    tableModel3.clear();
-                    for (int i = 0; i < tabulatedFunction3.getCount(); i++) {
-                        tableModel3.addTableData(String.valueOf(tabulatedFunction3.getY(i)));
-                        tableModel3.fireTableDataChanged();
+                        tableModel2.clear();
+                        for (int i = 0; i < tabulatedFunction2.getCount(); i++) {
+                            tableModel2.addTableData(String.valueOf(tabulatedFunction2.getY(i)));
+                            tableModel2.fireTableDataChanged();
+                        }
+                    } catch (UnsupportedOperationException | NullPointerException exception) {
+                        System.out.println();
                     }
                 }
         );
 
         jButtonPlus.addActionListener(args -> {
-            temp = tabulatedFunctionOperationService.sum(tabulatedFunction1, tabulatedFunction2);
-            tableModel3.clear();
-            for (int i = 0; i < temp.getCount(); i++) {
-                tableModel3.addTableData(String.valueOf(temp.getY(i)));
-                tableModel3.fireTableDataChanged();
+            if (tabulatedFunction1 == null || tabulatedFunction2 == null) {
+                new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
+            } else {
+                try {
+                    tabulatedFunction3 = tabulatedFunctionOperationService.sum(tabulatedFunction1, tabulatedFunction2);
+                    tableModel3.clear();
+                    for (int i = 0; i < tabulatedFunction3.getCount(); i++) {
+                        tableModel3.addTableData(String.valueOf(tabulatedFunction3.getY(i)));
+                        tableModel3.fireTableDataChanged();
+                    }
+                } catch (InconsistentFunctionsException e) {
+                    new WindowException(new ExceptionPanel(e));
+                }
             }
         });
 
         jButtonDifference.addActionListener(args -> {
-                    temp = tabulatedFunctionOperationService.subtract(tabulatedFunction1, tabulatedFunction2);
-                    tableModel3.clear();
-                    for (int i = 0; i < temp.getCount(); i++) {
-                        tableModel3.addTableData(String.valueOf(temp.getY(i)));
-                        tableModel3.fireTableDataChanged();
+                    if (tabulatedFunction1 == null || tabulatedFunction2 == null) {
+                        new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
+                    } else {
+                        try {
+                            tabulatedFunction3 = tabulatedFunctionOperationService.subtract(tabulatedFunction1, tabulatedFunction2);
+                            tableModel3.clear();
+                            for (int i = 0; i < tabulatedFunction3.getCount(); i++) {
+                                tableModel3.addTableData(String.valueOf(tabulatedFunction3.getY(i)));
+                                tableModel3.fireTableDataChanged();
+                            }
+                        } catch (InconsistentFunctionsException e) {
+                            new WindowException(new ExceptionPanel(e));
+                        }
                     }
                 }
         );
 
         jButtonDivision.addActionListener(args -> {
-                    temp = tabulatedFunctionOperationService.division(tabulatedFunction1, tabulatedFunction2);
-                    tableModel3.clear();
-                    for (int i = 0; i < temp.getCount(); i++) {
-                        tableModel3.addTableData(String.valueOf(temp.getY(i)));
-                        tableModel3.fireTableDataChanged();
+                    if (tabulatedFunction1 == null || tabulatedFunction2 == null) {
+                        new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
+                    } else {
+                        try {
+                            tabulatedFunction3 = tabulatedFunctionOperationService.division(tabulatedFunction1, tabulatedFunction2);
+                            tableModel3.clear();
+                            for (int i = 0; i < tabulatedFunction3.getCount(); i++) {
+                                tableModel3.addTableData(String.valueOf(tabulatedFunction3.getY(i)));
+                                tableModel3.fireTableDataChanged();
+                            }
+                        } catch (InconsistentFunctionsException e) {
+                            new WindowException(new ExceptionPanel(e));
+                        }
                     }
                 }
         );
 
         jButtonMultiply.addActionListener(args -> {
-            temp = tabulatedFunctionOperationService.multiplication(tabulatedFunction1, tabulatedFunction2);
-            tableModel3.clear();
-            for (int i = 0; i < temp.getCount(); i++) {
-                tableModel3.addTableData(String.valueOf(temp.getY(i)));
-                tableModel3.fireTableDataChanged();
+            if (tabulatedFunction1 == null || tabulatedFunction2 == null) {
+                new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
+            } else {
+                try {
+                    tabulatedFunction3 = tabulatedFunctionOperationService.multiplication(tabulatedFunction1, tabulatedFunction2);
+                    tableModel3.clear();
+                    for (int i = 0; i < tabulatedFunction3.getCount(); i++) {
+                        tableModel3.addTableData(String.valueOf(tabulatedFunction3.getY(i)));
+                        tableModel3.fireTableDataChanged();
+                    }
+                } catch (InconsistentFunctionsException e) {
+                    new WindowException(new ExceptionPanel(e));
+                }
             }
         });
-
         // окно по центру экрана
         setLocationRelativeTo(null);
         setVisible(false);
     }
-
 
     private void compose() {
         GroupLayout layout = new GroupLayout(getContentPane());
@@ -207,16 +339,11 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
                 )
                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jButtonCreateOfArray2)
-                                        .addComponent(jButtonCreateOfFunction2)
-                                        .addComponent(jButtonDownland2)
                                         .addComponent(jButtonSave2)
                                 )
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(tableScrollPane3))
                         )
-
-
         );
 
         layout.setVerticalGroup(
@@ -233,9 +360,6 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
                                         .addComponent(jButtonSave1)
                                 )
                                 .addGroup(layout.createParallelGroup()
-                                        .addComponent(jButtonCreateOfArray2)
-                                        .addComponent(jButtonCreateOfFunction2)
-                                        .addComponent(jButtonDownland2)
                                         .addComponent(jButtonSave2)
                                 )
                         )
@@ -251,7 +375,6 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
                                         .addComponent(jButtonRavno)
                                 )
                         )
-
         );
     }
 }

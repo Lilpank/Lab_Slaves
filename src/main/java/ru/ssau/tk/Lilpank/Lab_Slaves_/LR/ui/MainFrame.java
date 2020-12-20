@@ -23,7 +23,6 @@ public class MainFrame extends JFrame implements ActionListener {
     public MainFrame() {
         super("Главное окно");
 
-
         getContentPane().setLayout(new GridLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));

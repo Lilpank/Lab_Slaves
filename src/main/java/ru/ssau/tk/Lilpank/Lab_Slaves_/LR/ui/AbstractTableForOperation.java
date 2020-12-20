@@ -8,7 +8,7 @@ public class AbstractTableForOperation extends AbstractTableModel {
     private static final int INDEX_COLUMN_NUMBER = 0;
     private static final int VALUE_COLUMN_NUMBER = 1;
     private static final long serialVersionUID = 8996072532697735991L;
-    private List<String> strings = new ArrayList<>();
+    private final List<String> strings = new ArrayList<>();
 
     public List<String> getTableData() {
         return strings;

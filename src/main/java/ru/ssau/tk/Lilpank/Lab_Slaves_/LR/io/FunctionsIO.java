@@ -1,6 +1,5 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.io;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.ArrayTabulatedFunction;
@@ -93,6 +92,6 @@ final public class FunctionsIO {
 
     public static ArrayTabulatedFunction deserializeJson(BufferedReader reader) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return (ArrayTabulatedFunction) objectMapper.readerFor(ArrayTabulatedFunction.class).readValue(reader);
+        return objectMapper.readerFor(ArrayTabulatedFunction.class).readValue(reader);
     }
 }
