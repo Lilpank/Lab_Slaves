@@ -4,16 +4,14 @@ import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.exceptions.InconsistentFunctionsExcepti
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.ArrayTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.LinkedListTabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.TabulatedFunction;
+import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.io.FunctionsIO;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.operations.TabulatedFunctionOperationService;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class WindowTabulatedFunctionOperationService extends JDialog {
     private final TabulatedFunctionOperationService tabulatedFunctionOperationService = new TabulatedFunctionOperationService();
@@ -51,7 +49,9 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
 
     public WindowTabulatedFunctionOperationService() {
         super();
-        jFileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Text files", "txt");
+        jFileChooser.setFileFilter(filter);
+
         //Размеры окна.
         setMaximumSize(new Dimension(MainFrame.WIDTH * 4, MainFrame.HEIGHT));
         setMinimumSize(new Dimension(MainFrame.WIDTH * 4, MainFrame.HEIGHT));
@@ -60,20 +60,56 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
         tableXY1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableXY2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tableXY3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
         getContentPane().setLayout(new GridLayout());
         compose();
+
+        jButtonDownland.addActionListener(args -> {
+            jFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            jFileChooser.showOpenDialog(this);
+            File file = jFileChooser.getSelectedFile();
+            try (BufferedReader outArray = new BufferedReader(new FileReader(file.getPath()))) {
+                tabulatedFunction1 = FunctionsIO.readTabulatedFunction(outArray, new ArrayTabulatedFunctionFactory());
+            } catch (IOException | NullPointerException e) {
+                System.out.println();
+            }
+            if (tabulatedFunction1 != null) {
+                tableModel1.clear();
+                for (int i = 0; i < tabulatedFunction1.getCount(); i++) {
+                    tableModel1.addTableData(String.valueOf(tabulatedFunction1.getY(i)));
+                    tableModel1.fireTableDataChanged();
+                }
+            }
+        });
+
+        jButtonDownland1.addActionListener(args -> {
+            jFileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            jFileChooser.showOpenDialog(this);
+            File file = jFileChooser.getSelectedFile();
+            try (BufferedReader outArray = new BufferedReader(new FileReader(file.getPath()))) {
+                tabulatedFunction2 = FunctionsIO.readTabulatedFunction(outArray, new ArrayTabulatedFunctionFactory());
+            } catch (IOException | NullPointerException e) {
+                System.out.println();
+            }
+            if (tabulatedFunction2 != null) {
+                tableModel2.clear();
+                for (int i = 0; i < tabulatedFunction2.getCount(); i++) {
+                    tableModel2.addTableData(String.valueOf(tabulatedFunction2.getY(i)));
+                    tableModel2.fireTableDataChanged();
+                }
+            }
+        });
         //кнопка для сохранения функции
         jButtonSave.addActionListener(args -> {
             if (tabulatedFunction1 == null) {
                 new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
             } else {
+                jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 JTextFileName jTextFileName = new JTextFileName();
                 jTextFileName.setModalityType(ModalityType.APPLICATION_MODAL);
                 jTextFileName.setVisible(true);
-
+                System.out.println(jFileChooser.getName());
                 if (!jTextFileName.getFileName().isEmpty()) {
-                    System.out.println(jTextFileName.getFileName());
                     jFileChooser.showSaveDialog(this);
                     File file = jFileChooser.getSelectedFile();
                     if (tabulatedFunction1 instanceof ArrayTabulatedFunction) {
@@ -101,6 +137,7 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
             if (tabulatedFunction2 == null) {
                 new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
             } else {
+                jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 JTextFileName jTextFileName = new JTextFileName();
                 jTextFileName.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
                 jTextFileName.setVisible(true);
@@ -133,6 +170,7 @@ public class WindowTabulatedFunctionOperationService extends JDialog {
             if (tabulatedFunction3 == null) {
                 new WindowException(new ExceptionPanel(new NullPointerException("Введите значения!")));
             } else {
+                jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 JTextFileName jTextFileName = new JTextFileName();
                 jTextFileName.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
                 jTextFileName.setVisible(true);
