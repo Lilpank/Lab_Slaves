@@ -1,17 +1,19 @@
 package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.ui;
 
+import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.exceptions.ArrayIsNotSortedException;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.TabulatedFunction;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.factory.ArrayTabulatedFunctionFactory;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CreatingTableTabulatedFunctionOfArray extends JDialog {
-    private final List<String> strings = new ArrayList<>();
-    private final AbstractTableModel tableModel = new AbstractTableXY(strings);
+public class CreatingTabulatedFunctionOfArray extends JDialog {
+    private final List<Double> xValues = new ArrayList<>();
+    private final List<Double> yValues = new ArrayList<>();
+
+    private final AbstractTableModelXY tableModel = new AbstractTableModelXY(xValues, yValues);
     private final JTable tableXY = new JTable(tableModel);
     private final JButton buttonCreateFunction = new JButton("Создать");
     private final JButton buttonCreateXY = new JButton("Создать point");
@@ -19,8 +21,7 @@ public class CreatingTableTabulatedFunctionOfArray extends JDialog {
     private final JTextField textFieldCount = new JTextField();
     private TabulatedFunction tabulatedFunction;
 
-    public CreatingTableTabulatedFunctionOfArray() {
-        super();
+    public CreatingTabulatedFunctionOfArray() {
         //размеры окна, и Layout
         getContentPane().setLayout(new GridLayout());
         setPreferredSize(new Dimension(MainFrame.WIDTH, MainFrame.HEIGHT));
@@ -42,6 +43,9 @@ public class CreatingTableTabulatedFunctionOfArray extends JDialog {
                 if (temp < 0) {
                     throw new ExceptionPanel("Введите положительное число!");
                 }
+                if (temp == 1) {
+                    throw new ExceptionPanel("Введите несколько точек");
+                }
                 addTableLine(temp);
             } catch (NumberFormatException exception) {
                 new WindowException(new ExceptionPanel(exception));
@@ -57,12 +61,15 @@ public class CreatingTableTabulatedFunctionOfArray extends JDialog {
         buttonCreateFunction.addActionListener(args -> {
             try {
                 setTabulatedFunctionFactory();
-                setVisible(false);
+                this.dispose();
             } catch (IllegalArgumentException exception) {
                 new WindowException(new ExceptionPanel(exception));
+            } catch (ArrayIsNotSortedException exceptionPanel) {
+                new WindowException(new ExceptionPanel(exceptionPanel));
             }
         });
-        setVisible(false);
+        setModal(true);
+        setVisible(true);
     }
 
 
@@ -94,25 +101,31 @@ public class CreatingTableTabulatedFunctionOfArray extends JDialog {
     }
 
     private void addTableLine(int count) {
-        strings.clear();
+        tableModel.clear();
+        tableModel.fireTableDataChanged();
         for (int i = 0; i < count; i++) {
-            strings.add(String.valueOf(0));
+            xValues.add((double) i);
+            yValues.add(0.);
             tableModel.fireTableDataChanged();
         }
     }
 
     public void setTabulatedFunctionFactory() {
-        double[] yValues = new double[strings.size()];
-        double[] xValues = new double[strings.size()];
+        double[] y = new double[xValues.size()];
+        double[] x = new double[xValues.size()];
 
-        for (int i = 0; i < strings.size(); i++) {
-            yValues[i] = Double.parseDouble(strings.get(i));
-            xValues[i] = Double.parseDouble(tableModel.getValueAt(i, 0).toString());
+        for (int i = 0; i < x.length; i++) {
+            y[i] = yValues.get(i);
+            x[i] = xValues.get(i);
         }
-        tabulatedFunction = new ArrayTabulatedFunctionFactory().create(xValues, yValues);
+        tabulatedFunction = new ArrayTabulatedFunctionFactory().create(x, y);
     }
 
     public TabulatedFunction getTabulatedFunction() {
         return tabulatedFunction;
+    }
+
+    public static void main(String[] args) {
+        new CreatingTabulatedFunctionOfArray();
     }
 }
