@@ -5,5 +5,4 @@ public class LgFunction implements MathFunction {
     public double apply(double x) {
         return Math.log10(x);
     }
-
 }
