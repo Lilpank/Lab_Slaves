@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class MainFrame extends JFrame implements ActionListener {
     public static final int HEIGHT = 640;
@@ -20,35 +22,50 @@ public class MainFrame extends JFrame implements ActionListener {
     private final JButton jButtonCalculator = new JButton("Калькулятор для двух функций");
     private final JButton jMenuDifCalculator = new JButton("Производная");
 
-
     public MainFrame() {
         super("Главное окно");
-        JMenuBar jMenuBar = new JMenuBar();
-
-        getContentPane().setLayout(new GridLayout());
+        //Масштаб окна
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setMaximumSize(new Dimension(WIDTH, HEIGHT));
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        //рисует картинку
+        backgroundImage();
 
-        compose();
         // Подключаем меню к интерфейсу приложения
+        JMenuBar jMenuBar = new JMenuBar();
         JMenu settings = new JMenu("Настройки");
-        settings.add(getCreatingWindowSettings());
+        settings.add(creatingMenuSettings());
 
-        // settings.add(jMenuItem);
         jMenuBar.add(settings);
         setJMenuBar(jMenuBar);
 
+        //Компановка кнопок
+        compose();
+
         jMenuDifCalculator.addActionListener(this);
         jButtonCalculator.addActionListener(this);
+
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
+    public void backgroundImage() {
+        try {
+            final Image backgroundImage = javax.imageio.ImageIO.read(new File("Icon.jpg"));
+            setContentPane(new JPanel(new BorderLayout()) {
+                @Override
+                public void paintComponent(Graphics g) {
+                    g.drawImage(backgroundImage, 0, 40, null);
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-    //кнопки настройки в главном окне  - сменить тип фабрики - массивы - связный список
-    private JMenu getCreatingWindowSettings() {
+    //настройки в главном окне  - сменить тип фабрики - массивы - связный список
+    private JMenu creatingMenuSettings() {
         JMenu fontChangeFactory = new JMenu("Сменить тип фабрики");
         JMenuItem arraysItem = new JRadioButtonMenuItem("Массивы");
         JMenuItem linkedListItem = new JRadioButtonMenuItem("Связный список");
