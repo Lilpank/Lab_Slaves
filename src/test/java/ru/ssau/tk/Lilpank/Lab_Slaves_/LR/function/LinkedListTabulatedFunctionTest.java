@@ -61,22 +61,6 @@ public class LinkedListTabulatedFunctionTest {
     }
 
     @Test
-    public void testApply() {
-        assertEquals(getListOfArray().apply(3), 30, DELTA);
-        assertEquals(getListOfMathFunction().apply(5), 25, DELTA);
-
-        assertEquals(getListOfArray().apply(7), 70, DELTA);
-        assertEquals(getListOfMathFunction().apply(10), 100, DELTA);
-
-        assertEquals(getListOfArray().apply(0.5), 5, DELTA);
-        assertEquals(getListOfMathFunction().apply(8), 64.01662049861496, DELTA);
-
-        assertEquals(getListOfArray().apply(-1), -10, DELTA);
-        assertEquals(getListOfMathFunction().apply(-7), -98.15789473684218, DELTA);
-
-    }
-
-    @Test
     public void testGetNode() {
         assertEquals(getListOfArray().getX(0), 1, DELTA);
         assertEquals(getListOfArray().getX(1), 2, DELTA);
@@ -189,15 +173,72 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(testInsertLinkedList.getX(3), 2.5, DELTA);
         assertEquals(testInsertLinkedList.getY(3), 25, DELTA);
         for (int i = 4; i < 8; i++) {
-                assertEquals(testInsertLinkedList.getX(i), i - 1, DELTA);
-                assertEquals(testInsertLinkedList.getY(i), 10 * (i - 1), DELTA);
+            assertEquals(testInsertLinkedList.getX(i), i - 1, DELTA);
+            assertEquals(testInsertLinkedList.getY(i), 10 * (i - 1), DELTA);
         }
 
         testInsertLinkedList.insert(4, 1);
         assertEquals(testInsertLinkedList.getX(5), 4, DELTA);
         assertEquals(testInsertLinkedList.getY(5), 1, DELTA);
-
         assertEquals(testInsertLinkedList.getCount(), 8, DELTA);
+
+        LinkedListTabulatedFunction testInsertLinkedList2 = (LinkedListTabulatedFunction) getListOfMathFunction();
+
+        testInsertLinkedList2.insert(0, 0);
+        assertEquals(testInsertLinkedList2.getCount(), 21, DELTA);
+        assertEquals(testInsertLinkedList2.getX(0), 0, DELTA);
+        for (int i = 1; i < 21; i++) {
+            assertEquals(testInsertLinkedList2.getX(i), 4.7368421052631579 + i * 0.2631578947368424, DELTA);
+            assertEquals(testInsertLinkedList2.getY(i), Math.pow(4.7368421052631579 + i * 0.2631578947368424, 2), DELTA);
+        }
+
+        testInsertLinkedList2.insert(7, 49);
+        assertEquals(testInsertLinkedList2.getCount(), 22, DELTA);
+        assertEquals(testInsertLinkedList2.getX(0), 0, DELTA);
+        for (int i = 1; i < 8; i++) {
+            assertEquals(testInsertLinkedList2.getX(i), 4.7368421052631579 + i * 0.2631578947368424, DELTA);
+            assertEquals(testInsertLinkedList2.getY(i), Math.pow(4.7368421052631579 + i * 0.2631578947368424, 2), DELTA);
+        }
+        assertEquals(testInsertLinkedList2.getX(9), 7, DELTA);
+        assertEquals(testInsertLinkedList2.getY(9), 49, DELTA);
+        for (int i = 10; i < 22; i++) {
+            assertEquals(testInsertLinkedList2.getX(i), 4.7368421052631579 + (i - 1) * 0.2631578947368424, DELTA);
+            assertEquals(testInsertLinkedList2.getY(i), Math.pow(4.7368421052631579 + (i - 1) * 0.2631578947368424, 2), DELTA);
+        }
+
+        testInsertLinkedList2.insert(10.2631578947368424, Math.pow(10.2631578947368424, 2));
+        assertEquals(testInsertLinkedList2.getCount(), 23, DELTA);
+        assertEquals(testInsertLinkedList2.getX(0), 0, DELTA);
+        for (int i = 1; i < 9; i++) {
+            assertEquals(testInsertLinkedList2.getX(i), 4.7368421052631579 + i * 0.2631578947368424, DELTA);
+            assertEquals(testInsertLinkedList2.getY(i), Math.pow(4.7368421052631579 + i * 0.2631578947368424, 2), DELTA);
+        }
+        assertEquals(testInsertLinkedList2.getX(9), 7, DELTA);
+        assertEquals(testInsertLinkedList2.getY(9), 49, DELTA);
+        for (int i = 10; i < 23; i++) {
+            assertEquals(testInsertLinkedList2.getX(i), 4.7368421052631579 + (i - 1) * 0.2631578947368424, DELTA);
+            assertEquals(testInsertLinkedList2.getY(i), Math.pow(4.7368421052631579 + (i - 1) * 0.2631578947368424, 2), DELTA);
+        }
+
+        testInsertLinkedList2.insert(8.15789473684211, 0);
+        assertEquals(testInsertLinkedList2.getCount(), 23, DELTA);
+        assertEquals(testInsertLinkedList2.getX(0), 0, DELTA);
+        for (int i = 1; i < 9; i++) {
+            assertEquals(testInsertLinkedList2.getX(i), 4.7368421052631579 + i * 0.2631578947368424, DELTA);
+            assertEquals(testInsertLinkedList2.getY(i), Math.pow(4.7368421052631579 + i * 0.2631578947368424, 2), DELTA);
+        }
+        assertEquals(testInsertLinkedList2.getX(9), 7, DELTA);
+        assertEquals(testInsertLinkedList2.getY(9), 49, DELTA);
+        for (int i = 10; i < 14; i++) {
+            assertEquals(testInsertLinkedList2.getX(i), 4.7368421052631579 + (i - 1) * 0.2631578947368424, DELTA);
+            assertEquals(testInsertLinkedList2.getY(i), Math.pow(4.7368421052631579 + (i - 1) * 0.2631578947368424, 2), DELTA);
+        }
+        assertEquals(testInsertLinkedList2.getX(14), 8.15789473684211, DELTA);
+        assertEquals(testInsertLinkedList2.getY(14), 0, DELTA);
+        for (int i = 15; i < 23; i++) {
+            assertEquals(testInsertLinkedList2.getX(i), 4.7368421052631579 + (i - 1) * 0.2631578947368424, DELTA);
+            assertEquals(testInsertLinkedList2.getY(i), Math.pow(4.7368421052631579 + (i - 1) * 0.2631578947368424, 2), DELTA);
+        }
     }
 
     @Test
@@ -225,7 +266,35 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(testRemoveLinkedListFirst.getY(0), 20, DELTA);
         assertEquals(testRemoveLinkedListFirst.getX(1), 4, DELTA);
         assertEquals(testRemoveLinkedListFirst.getY(1), 40, DELTA);
+
+        LinkedListTabulatedFunction testRemoveLinkedListSecond = (LinkedListTabulatedFunction) getListOfMathFunction();
+
+        testRemoveLinkedListSecond.remove(0);
+        assertEquals(testRemoveLinkedListSecond.getCount(), 19, DELTA);
+        for (int i = 0; i < 19; i++) {
+            assertEquals(testRemoveLinkedListSecond.getX(i), 5.2631578947368424 + i * 0.2631578947368424, DELTA);
+            assertEquals(testRemoveLinkedListSecond.getY(i), Math.pow(5.2631578947368424 + i * 0.2631578947368424, 2), DELTA);
+        }
+
+        testRemoveLinkedListSecond.remove(18);
+        assertEquals(testRemoveLinkedListSecond.getCount(), 18, DELTA);
+        for (int i = 0; i < 18; i++) {
+            assertEquals(testRemoveLinkedListSecond.getX(i), 5.2631578947368424 + i * 0.2631578947368424, DELTA);
+            assertEquals(testRemoveLinkedListSecond.getY(i), Math.pow(5.2631578947368424 + i * 0.2631578947368424, 2), DELTA);
+        }
+
+        testRemoveLinkedListSecond.remove(10);
+        assertEquals(testRemoveLinkedListSecond.getCount(), 17, DELTA);
+        for (int i = 0; i < 10; i++) {
+            assertEquals(testRemoveLinkedListSecond.getX(i), 5.2631578947368424 + i * 0.2631578947368424, DELTA);
+            assertEquals(testRemoveLinkedListSecond.getY(i), Math.pow(5.2631578947368424 + i * 0.2631578947368424, 2), DELTA);
+        }
+        for (int i = 10; i < 17; i++) {
+            assertEquals(testRemoveLinkedListSecond.getX(i), 8.15789473684211 + (i - 10) * 0.2631578947368424, DELTA);
+            assertEquals(testRemoveLinkedListSecond.getY(i), Math.pow(8.15789473684211 + (i - 10) * 0.2631578947368424, 2), DELTA);
+        }
     }
+
 
     @Test
     public void testTestApply() {
