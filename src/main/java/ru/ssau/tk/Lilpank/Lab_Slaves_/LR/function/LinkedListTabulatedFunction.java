@@ -198,6 +198,32 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         }
     }
 
+    private Node floorNodeOfX(double x) {
+        if (x < head.x) {
+            throw new IllegalArgumentException("X меньше минимального значения в списке.");
+        }
+        Node indexNode = head;
+        for (int i = 0; i < count; i++) {
+            if (indexNode.x <= x) {
+                indexNode = indexNode.next;
+            } else {
+                return indexNode.prev;
+            }
+        }
+        return head.prev;
+    }
+
+    public double apply(double x) {
+        if (x < leftBound()) {
+            return extrapolateLeft(x);
+        } else if (x > rightBound()) {
+            return extrapolateRight(x);
+        } else if (indexOfX(x) != -1) {
+            return getY(indexOfX(x));
+        }
+        return interpolate(x, floorIndexOfX(x));
+    }
+
     @Override
     protected double extrapolateLeft(double x) {
         return interpolate(x, head.x, head.next.x, head.y, head.next.y);

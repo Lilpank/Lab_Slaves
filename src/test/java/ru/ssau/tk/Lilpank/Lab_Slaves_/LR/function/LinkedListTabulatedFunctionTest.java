@@ -114,8 +114,7 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testGetX() {
         assertEquals(getListOfArray().getX(0), 1, DELTA);
-        assertEquals(getListOfMathFunction().getX(0), 5, DELTA);
-    }
+        assertEquals(getListOfMathFunction().getX(0), 5, DELTA); }
 
     @Test
     public void testGetY() {
@@ -211,7 +210,6 @@ public class LinkedListTabulatedFunctionTest {
             assertEquals(testRemoveLinkedListFirst.getX(i), i + 2, DELTA);
             assertEquals(testRemoveLinkedListFirst.getY(i), 10 * (i + 2), DELTA);
         }
-
         testRemoveLinkedListFirst.remove(1);
         assertEquals(testRemoveLinkedListFirst.getCount(), 3, DELTA);
         assertEquals(testRemoveLinkedListFirst.getX(0), 2, DELTA);
@@ -227,5 +225,20 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(testRemoveLinkedListFirst.getY(0), 20, DELTA);
         assertEquals(testRemoveLinkedListFirst.getX(1), 4, DELTA);
         assertEquals(testRemoveLinkedListFirst.getY(1), 40, DELTA);
+    }
+
+    @Test
+    public void testTestApply() {
+        LinkedListTabulatedFunction testApplyLinkedListFirst = (LinkedListTabulatedFunction) getListOfArray();
+
+        assertEquals(testApplyLinkedListFirst.apply(-10), -100, DELTA);
+        assertEquals(testApplyLinkedListFirst.apply(2.5), 25, DELTA);
+        assertEquals(testApplyLinkedListFirst.apply(10), 100, DELTA);
+
+        LinkedListTabulatedFunction testApplyLinkedList = (LinkedListTabulatedFunction) getListOfMathFunction();
+        assertEquals(testApplyLinkedListFirst.apply(0), 0, DELTA);
+        assertEquals(testApplyLinkedListFirst.apply(3), 30, DELTA);
+        assertEquals(testApplyLinkedListFirst.apply(7.5), 75, DELTA);
+        assertEquals(testApplyLinkedListFirst.apply(15), 150, DELTA);
     }
 }
