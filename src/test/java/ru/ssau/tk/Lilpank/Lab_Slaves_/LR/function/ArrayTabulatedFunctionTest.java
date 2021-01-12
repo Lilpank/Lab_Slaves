@@ -2,7 +2,6 @@ package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function;
 
 import org.testng.annotations.Test;
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.exceptions.InterpolationException;
-import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.*;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -203,5 +202,84 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(getDefinedThroughArrays().rightBound(), 15, DELTA);
         assertEquals(getDefinedThroughMathFunction().rightBound(), 10, DELTA);
         assertThrows(IllegalArgumentException.class, () -> getUnitArray().rightBound());
+    }
+
+    @Test
+    public void testInsert() {
+        ArrayTabulatedFunction testInsertArrays = (ArrayTabulatedFunction) getDefinedThroughArrays();
+
+        testInsertArrays.insert(-105, -10);
+        assertEquals(testInsertArrays.getCount(), 8, DELTA);
+        testInsertArrays.insert(7, 3);
+        assertEquals(testInsertArrays.getCount(), 9, DELTA);
+        testInsertArrays.insert(15, 5);
+        assertEquals(testInsertArrays.getCount(), 9, DELTA);
+        testInsertArrays.insert(105, 10);
+        assertEquals(testInsertArrays.getCount(), 10, DELTA);
+
+        assertEquals(testInsertArrays.getX(0), -105, DELTA);
+        assertEquals(testInsertArrays.getY(0), -10, DELTA);
+        assertEquals(testInsertArrays.getX(1), -15, DELTA);
+        assertEquals(testInsertArrays.getY(1), -5, DELTA);
+        assertEquals(testInsertArrays.getX(2), -3, DELTA);
+        assertEquals(testInsertArrays.getY(2), -2, DELTA);
+        assertEquals(testInsertArrays.getX(3), -1, DELTA);
+        assertEquals(testInsertArrays.getY(3), -1, DELTA);
+        assertEquals(testInsertArrays.getX(4), 0, DELTA);
+        assertEquals(testInsertArrays.getY(4), 0, DELTA);
+        assertEquals(testInsertArrays.getX(5), 1, DELTA);
+        assertEquals(testInsertArrays.getY(5), 1, DELTA);
+        assertEquals(testInsertArrays.getX(6), 3, DELTA);
+        assertEquals(testInsertArrays.getY(6), 2, DELTA);
+        assertEquals(testInsertArrays.getX(7), 7, DELTA);
+        assertEquals(testInsertArrays.getY(7), 3, DELTA);
+        assertEquals(testInsertArrays.getX(8), 15, DELTA);
+        assertEquals(testInsertArrays.getY(8), 5, DELTA);
+        assertEquals(testInsertArrays.getX(9), 105, DELTA);
+        assertEquals(testInsertArrays.getY(9), 10, DELTA);
+    }
+
+    @Test
+    public void testRemove() {
+        ArrayTabulatedFunction testRemoveArrays = (ArrayTabulatedFunction) getDefinedThroughArrays();
+
+        testRemoveArrays.remove(0);
+        assertEquals(testRemoveArrays.getX(0), -3, DELTA);
+        assertEquals(testRemoveArrays.getY(0), -2, DELTA);
+        assertEquals(testRemoveArrays.getX(1), -1, DELTA);
+        assertEquals(testRemoveArrays.getY(1), -1, DELTA);
+        assertEquals(testRemoveArrays.getX(2), 0, DELTA);
+        assertEquals(testRemoveArrays.getY(2), 0, DELTA);
+        assertEquals(testRemoveArrays.getX(3), 1, DELTA);
+        assertEquals(testRemoveArrays.getY(3), 1, DELTA);
+        assertEquals(testRemoveArrays.getX(4), 3, DELTA);
+        assertEquals(testRemoveArrays.getY(4), 2, DELTA);
+        assertEquals(testRemoveArrays.getX(5), 15, DELTA);
+        assertEquals(testRemoveArrays.getY(5), 9, DELTA);
+        assertEquals(testRemoveArrays.getCount(), 6, DELTA);
+
+        testRemoveArrays.remove(5);
+        assertEquals(testRemoveArrays.getX(0), -3, DELTA);
+        assertEquals(testRemoveArrays.getY(0), -2, DELTA);
+        assertEquals(testRemoveArrays.getX(1), -1, DELTA);
+        assertEquals(testRemoveArrays.getY(1), -1, DELTA);
+        assertEquals(testRemoveArrays.getX(2), 0, DELTA);
+        assertEquals(testRemoveArrays.getY(2), 0, DELTA);
+        assertEquals(testRemoveArrays.getX(3), 1, DELTA);
+        assertEquals(testRemoveArrays.getY(3), 1, DELTA);
+        assertEquals(testRemoveArrays.getX(4), 3, DELTA);
+        assertEquals(testRemoveArrays.getY(4), 2, DELTA);
+        assertEquals(testRemoveArrays.getCount(), 5, DELTA);
+
+        testRemoveArrays.remove(2);
+        assertEquals(testRemoveArrays.getX(0), -3, DELTA);
+        assertEquals(testRemoveArrays.getY(0), -2, DELTA);
+        assertEquals(testRemoveArrays.getX(1), -1, DELTA);
+        assertEquals(testRemoveArrays.getY(1), -1, DELTA);
+        assertEquals(testRemoveArrays.getX(2), 1, DELTA);
+        assertEquals(testRemoveArrays.getY(2), 1, DELTA);
+        assertEquals(testRemoveArrays.getX(3), 3, DELTA);
+        assertEquals(testRemoveArrays.getY(3), 2, DELTA);
+        assertEquals(testRemoveArrays.getCount(), 4, DELTA);
     }
 }

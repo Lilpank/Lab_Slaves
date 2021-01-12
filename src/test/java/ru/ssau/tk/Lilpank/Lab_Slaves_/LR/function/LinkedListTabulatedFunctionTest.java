@@ -2,7 +2,6 @@ package ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function;
 
 import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.exceptions.InterpolationException;
 import org.testng.annotations.Test;
-import ru.ssau.tk.Lilpank.Lab_Slaves_.LR.function.*;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -174,5 +173,59 @@ public class LinkedListTabulatedFunctionTest {
         assertThrows(InterpolationException.class, () -> testListMath.interpolate(2.1, 3));
         assertThrows(InterpolationException.class, () -> testListArray.interpolate(-2, 0));
         assertThrows(InterpolationException.class, () -> testListMath.interpolate(1., 0));
+    }
+
+    @Test
+    public void testInsert() {
+        LinkedListTabulatedFunction testInsertLinkedList = (LinkedListTabulatedFunction) getListOfArray();
+
+        testInsertLinkedList.insert(0, 0);
+        testInsertLinkedList.insert(2.5, 25);
+        testInsertLinkedList.insert(6, 60);
+
+        for (int i = 0; i < 3; i++) {
+            assertEquals(testInsertLinkedList.getX(i), i, DELTA);
+            assertEquals(testInsertLinkedList.getY(i), 10 * i, DELTA);
+        }
+        assertEquals(testInsertLinkedList.getX(3), 2.5, DELTA);
+        assertEquals(testInsertLinkedList.getY(3), 25, DELTA);
+        for (int i = 4; i < 8; i++) {
+                assertEquals(testInsertLinkedList.getX(i), i - 1, DELTA);
+                assertEquals(testInsertLinkedList.getY(i), 10 * (i - 1), DELTA);
+        }
+
+        testInsertLinkedList.insert(4, 1);
+        assertEquals(testInsertLinkedList.getX(5), 4, DELTA);
+        assertEquals(testInsertLinkedList.getY(5), 1, DELTA);
+
+        assertEquals(testInsertLinkedList.getCount(), 8, DELTA);
+    }
+
+    @Test
+    public void testRemove() {
+        LinkedListTabulatedFunction testRemoveLinkedListFirst = (LinkedListTabulatedFunction) getListOfArray();
+
+        testRemoveLinkedListFirst.remove(0);
+        assertEquals(testRemoveLinkedListFirst.getCount(), 4, DELTA);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(testRemoveLinkedListFirst.getX(i), i + 2, DELTA);
+            assertEquals(testRemoveLinkedListFirst.getY(i), 10 * (i + 2), DELTA);
+        }
+
+        testRemoveLinkedListFirst.remove(1);
+        assertEquals(testRemoveLinkedListFirst.getCount(), 3, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getX(0), 2, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getY(0), 20, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getX(1), 4, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getY(1), 40, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getX(2), 5, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getY(2), 50, DELTA);
+
+        testRemoveLinkedListFirst.remove(2);
+        assertEquals(testRemoveLinkedListFirst.getCount(), 2, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getX(0), 2, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getY(0), 20, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getX(1), 4, DELTA);
+        assertEquals(testRemoveLinkedListFirst.getY(1), 40, DELTA);
     }
 }

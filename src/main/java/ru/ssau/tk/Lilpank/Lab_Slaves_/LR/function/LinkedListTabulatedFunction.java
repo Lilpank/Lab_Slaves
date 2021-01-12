@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Serializable, Insertable, Removable {
     private static final long serialVersionUID = 6518678659890191671L;
     private Node head;
     private int count = 0;
@@ -221,6 +221,54 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
             }
         }
+    }
+
+    @Override
+    public void insert(double x, double y) {
+        if (count == 0) {
+            addNode(x, y);
+        } else if (indexOfX(x) != -1) {
+            setY(indexOfX(x), y);
+        } else {
+            int index = x < head.x ? 0 : floorIndexOfX(x);
+            Node newNode = new Node();
+            if (index == 0 || index == count) {
+                newNode.next = head;
+                newNode.prev = head.prev;
+                newNode.x = x;
+                newNode.y = y;
+                head.prev.next = newNode;
+                if (index == 0) {
+                    head = newNode;
+                } else {
+                    head.prev = newNode;
+                }
+            } else {
+                Node previous = getNode(index);
+                newNode.next = previous.next;
+                newNode.prev = previous;
+                newNode.x = x;
+                newNode.y = y;
+                previous.next = newNode;
+                newNode.next.prev = newNode;
+            }
+            count++;
+        }
+    }
+
+    @Override
+    public void remove(int index) {
+        if (count <= 2) {
+            throw new UnsupportedOperationException("Список должен состоять минимум из 2 точек.");
+        }
+        Node executedNode = getNode(index);
+        if (index == 0) {
+            head = executedNode.next;
+            head.prev = executedNode.prev;
+        }
+        executedNode.prev.next = executedNode.next;
+        executedNode.next.prev = executedNode.prev;
+        count--;
     }
 
     private void checkIndex(int index) {

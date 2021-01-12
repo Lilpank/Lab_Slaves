@@ -10,12 +10,12 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Serializable, Insertable, Removable {
     private static final long serialVersionUID = 1545272046013992252L;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
-    private final double[] xValues;
+    private double[] xValues;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY)
-    private final double[] yValues;
+    private double[] yValues;
     private int count = 0;
 
     @JsonCreator
@@ -162,5 +162,53 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     @Override
     public double rightBound() {
         return xValues[count - 1];
+    }
+
+    @Override
+    public void insert(double x, double y) {
+        if (indexOfX(x) != -1) {
+            setY(indexOfX(x), y);
+        } else {
+            double[] xValuesNew = new double[count + 1];
+            double[] yValuesNew = new double[count + 1];
+            if (x < leftBound()) {
+                xValuesNew[0] = x;
+                yValuesNew[0] = y;
+                System.arraycopy(xValues, 0, xValuesNew, 1, count);
+                System.arraycopy(yValues, 0, yValuesNew, 1, count);
+            } else if (x > rightBound()) {
+                System.arraycopy(xValues, 0, xValuesNew, 0, count);
+                System.arraycopy(yValues, 0, yValuesNew, 0, count);
+                xValuesNew[count] = x;
+                yValuesNew[count] = y;
+            } else {
+                int i = floorIndexOfX(x);
+                System.arraycopy(xValues, 0, xValuesNew, 0, i + 1);
+                System.arraycopy(yValues, 0, yValuesNew, 0, i + 1);
+                xValuesNew[i + 1] = x;
+                yValuesNew[i + 1] = y;
+                System.arraycopy(xValues, i + 1, xValuesNew, i + 2, count - i - 1);
+                System.arraycopy(yValues, i + 1, yValuesNew, i + 2, count - i - 1);
+            }
+            this.xValues = xValuesNew;
+            this.yValues = yValuesNew;
+            count++;
+        }
+    }
+
+    @Override
+    public void remove(int index) {
+        if (count <= 2) {
+            throw new UnsupportedOperationException("Массивы xValues и yValues должны иметь размер больше 2.");
+        }
+        double[] xValuesNew = new double[count + 1];
+        double[] yValuesNew = new double[count + 1];
+        System.arraycopy(xValues, 0, xValuesNew, 0, index);
+        System.arraycopy(yValues, 0, yValuesNew, 0, index);
+        System.arraycopy(xValues, index + 1, xValuesNew, index, count - index - 1);
+        System.arraycopy(yValues, index + 1, yValuesNew, index, count - index - 1);
+        this.xValues = xValuesNew;
+        this.yValues = yValuesNew;
+        count--;
     }
 }
