@@ -235,10 +235,11 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(testApplyLinkedListFirst.apply(2.5), 25, DELTA);
         assertEquals(testApplyLinkedListFirst.apply(10), 100, DELTA);
 
-        LinkedListTabulatedFunction testApplyLinkedList = (LinkedListTabulatedFunction) getListOfMathFunction();
-        assertEquals(testApplyLinkedListFirst.apply(0), 0, DELTA);
-        assertEquals(testApplyLinkedListFirst.apply(3), 30, DELTA);
-        assertEquals(testApplyLinkedListFirst.apply(7.5), 75, DELTA);
-        assertEquals(testApplyLinkedListFirst.apply(15), 150, DELTA);
+        LinkedListTabulatedFunction testApplyLinkedListSecond = (LinkedListTabulatedFunction) getListOfMathFunction();
+
+        assertEquals(testApplyLinkedListSecond.apply(0), -26.31578947368424, DELTA);
+        assertEquals(testApplyLinkedListSecond.apply(3), 4.473684210526304, DELTA);
+        assertEquals(testApplyLinkedListSecond.apply(7.5), 56.267313019390585, DELTA);
+        assertEquals(testApplyLinkedListSecond.apply(15), 198.68421052631584, DELTA);
     }
 }
